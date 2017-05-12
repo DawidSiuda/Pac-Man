@@ -8,7 +8,6 @@ public:
 	int smierc();
 	int ladowanie_na_mape();
 	void rysuj();
-
 	ghost();
 	~ghost();
 private:

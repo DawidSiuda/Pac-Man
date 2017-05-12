@@ -1,7 +1,9 @@
 #include "mapa.h"
 #include "ghost.h"
 #include "pac_man.h"
-#include "gotowe_funkcje_z_opengl.cpp"
+#include "fnkcje_SFML.cpp"
+
+#include <SFML/Graphics.hpp>
 
 int main()
 {
