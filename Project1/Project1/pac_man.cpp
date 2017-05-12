@@ -1,34 +1,23 @@
 #include "pac_man.h"
 
 
-
-void pac_man::rysuj()
+pac_man::pac_man(int ile, int pre, int kier,int xx, int yy, bool port ): kolor(zulty), postac(pre, kier)
 {
-}
+	ile_zyc = ile;
+	portal = port;
+	
+	x = xx; 
+	y = yy;
+	bohater.setRadius(10);
+	bohater.setOutlineColor(Color::Red);
+	bohater.setOutlineThickness(5);
+	bohater.setPosition(x, y);
 
-void pac_man::obsluz_klawiature()
-{
-}
-
-void pac_man::smierc()
-{
-}
-
-pac_man::pac_man()
-{
 }
 
 
 pac_man::~pac_man()
 {
+	//ile_istnieje--;
 }
 
-int pac_man::zjedz_ducha()
-{
-	return 0;
-}
-
-int pac_man::zjedz_kulke()
-{
-	return 0;
-}

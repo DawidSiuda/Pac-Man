@@ -1,18 +1,16 @@
 #pragma once
 
+#include "lista_zmiennych_stalych.cpp"
+
 class postac
 {
 public:
-	void ruch();
-
-	postac();
+	postac(float = 0, int = LEWO);
 	~postac();
 
 private:
-	int wybierz_kolor();
-	int predkosc;
-	const int kolor;
-	int kierunek;
+	float predkosc;
+	int kierunek; // 1 - góra, 2 - lewo, 3 - dó³, 4 - lewo
 
 
 };

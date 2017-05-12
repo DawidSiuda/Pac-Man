@@ -1,13 +1,10 @@
 #include "postac.h"
 
 
-
-void postac::ruch()
+postac::postac(float pre, int kier)
 {
-}
-
-postac::postac() : kolor(wybierz_kolor())
-{
+	predkosc = pre;
+	kierunek = kier;
 }
 
 
@@ -15,7 +12,3 @@ postac::~postac()
 {
 }
 
-int postac::wybierz_kolor()
-{
-	return 0;
-}

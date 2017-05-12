@@ -1,5 +1,6 @@
-﻿  main.cpp
-  fnkcje_SFML.cpp
+﻿  mapa.cpp
+d:\pulpit\glowny_pac-man\project1\project1\mapa.cpp(9): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
   Generating Code...
   Project1.vcxproj -> D:\pulpit\glowny_pac-man\Project1\x64\Debug\Project1.exe
   Project1.vcxproj -> D:\pulpit\glowny_pac-man\Project1\x64\Debug\Project1.pdb (Partial PDB)

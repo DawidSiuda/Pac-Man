@@ -128,6 +128,8 @@
   <ItemGroup>
     <ClCompile Include="ghost.cpp" />
     <ClCompile Include="fnkcje_SFML.cpp" />
+    <ClCompile Include="glowna_funkcja_gry.cpp" />
+    <ClCompile Include="lista_zmiennych_stalych.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapa.cpp" />
     <ClCompile Include="pac_man.cpp" />
