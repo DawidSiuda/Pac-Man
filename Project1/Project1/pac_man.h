@@ -2,25 +2,34 @@
 
 #include "postac.h"	
 #include "lista_zmiennych_stalych.cpp"
+#include "Kolizja.h"
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 using namespace sf;
 
-class pac_man : private postac
+class pac_man : public postac
 {
 public:
+	void zmiana_pozycji(float,int);
+	void zmiana_pozycji(float);
+	void zmiana_kierunku(int);
+	Shape *cialo;
 
 	pac_man(int ile_zyc = 3,
-		int predkosc = 1,
-		int kierunek = PRAWO,
-		int xx = 331,
-		int yy = 507,
-		bool port = false);
+			float predkosc = 1,
+			int kierunek = PRAWO,
+			float xx = 110,
+			float yy = 110,
+			bool port = false);
 	~pac_man();
-	CircleShape bohater;
+
+	friend class Kolizja;
 
 private:
+	Texture tekstura;
+	CircleShape bohater;
 	float x;
 	float y;
 	unsigned short ile_zyc;

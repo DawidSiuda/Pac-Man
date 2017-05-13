@@ -1,6 +1,7 @@
 #pragma once
 
 #include "postac.h"
+#include "Kolizja.h"
 
 class ghost : public postac 
 {
@@ -10,6 +11,8 @@ public:
 	void rysuj();
 	ghost();
 	~ghost();
+
+	friend class Kolizja;
 private:
 	static int ile_istnieje;
 	bool poscig; // true - poscig; false - ucieczka

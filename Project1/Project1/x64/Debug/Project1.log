@@ -1,6 +1,7 @@
-﻿  mapa.cpp
-d:\pulpit\glowny_pac-man\project1\project1\mapa.cpp(9): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  main.cpp
+﻿  stworz_kolizje_dla_mapy.cpp
   Generating Code...
+  Skipping... (no relevant changes detected)
+  main.cpp
+  lista_zmiennych_stalych.cpp
   Project1.vcxproj -> D:\pulpit\glowny_pac-man\Project1\x64\Debug\Project1.exe
   Project1.vcxproj -> D:\pulpit\glowny_pac-man\Project1\x64\Debug\Project1.pdb (Partial PDB)

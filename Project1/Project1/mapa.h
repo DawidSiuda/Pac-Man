@@ -1,17 +1,22 @@
 #pragma once
+
+#include "Kolizja.h"
+
 #include <SFML/Graphics.hpp>
 #include <string>
+
+
 
 using namespace sf;
 
 class mapa
 {
 public:
-	//void laduj_nowa();
-	//void rysuj();
-	//void pasuza();
-	Sprite Obraz;
-	Texture tekstura;
+
+	Sprite rysuj();
+	
+	const short pozycja_x;
+	const short pozycja_y;
 
 	mapa(std::string nazwa_bitmapy,
 		int pozycja_poczatkowa_x = 0,
@@ -19,12 +24,12 @@ public:
 		int przesuniecie_w_dol = 0 // nie dzia³a
 		);
 	~mapa();
-
+	friend class Kolizja;
+	friend void stworz_kolizje_dla_mapy(int, Kolizja *);
 private:
-	//int 
-	//bool pauza; // true - pauza; false - trwa rozgrywka
-	//int wysokosc;//px
-	//int szerokosc; //px
-	//int ile_kulek;
+
+	Kolizja mapa_kolizji[65];
+	Sprite Obraz;
+	Texture tekstura;
 };
 

@@ -39,6 +39,12 @@
     <ClCompile Include="lista_zmiennych_stalych.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Kolizja.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stworz_kolizje_dla_mapy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="postac.h">
@@ -51,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mapa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Kolizja.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
