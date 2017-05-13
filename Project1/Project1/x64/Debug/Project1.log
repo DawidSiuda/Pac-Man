@@ -1,20 +1,4 @@
-﻿  pac_man.cpp
-d:\pulpit\glowny_pac-man\project1\project1\pac_man.cpp(26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-  Compiling...
-  stworz_kolizje_dla_mapy.cpp
-  obsluga_kolizji_mapy.cpp
-  mapa.cpp
-d:\pulpit\glowny_pac-man\project1\project1\mapa.cpp(20): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  main.cpp
-  Kolizja.cpp
-d:\pulpit\glowny_pac-man\project1\project1\kolizja.cpp(18): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\pulpit\glowny_pac-man\project1\project1\kolizja.cpp(19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\pulpit\glowny_pac-man\project1\project1\kolizja.cpp(33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\pulpit\glowny_pac-man\project1\project1\kolizja.cpp(34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-d:\pulpit\glowny_pac-man\project1\project1\kolizja.cpp(12): warning C4715: 'Kolizja::operator=': not all control paths return a value
-  Skipping... (no relevant changes detected)
-  lista_zmiennych_stalych.cpp
+﻿  main.cpp
+d:\pulpit\glowny_pac-man\project1\project1\kolizja.h(9): warning C4091: 'extern ': ignored on left of 'pac_man' when no variable is declared
   Project1.vcxproj -> D:\pulpit\glowny_pac-man\Project1\x64\Debug\Project1.exe
   Project1.vcxproj -> D:\pulpit\glowny_pac-man\Project1\x64\Debug\Project1.pdb (Partial PDB)

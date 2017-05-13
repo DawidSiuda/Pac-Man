@@ -20,7 +20,7 @@ void pac_man::zmiana_pozycji(float czas_od_oststniej_klatki,int gdzie)
 	case STOJ:
 		break;
 	default:
-		std::cout << "zly kierunek pac-mana" << std::endl;
+		std::cout << "zly kierunek pac-mana: " << gdzie <<  std::endl;
 	}
 	//std::cout << x << " " << y << std::endl;
 	cialo->setPosition((int)x, (int)y);
@@ -29,6 +29,12 @@ void pac_man::zmiana_pozycji(float czas_od_oststniej_klatki,int gdzie)
 void pac_man::zmiana_pozycji(float czas_od_oststniej_klatki)
 {
 	zmiana_pozycji(czas_od_oststniej_klatki,kierunek);
+}
+
+void pac_man::zmiana_pozycji(int xx, int yy)
+{
+	x = xx;
+	y = yy;
 }
 
 void pac_man::zmiana_kierunku(int nowy_kier)
@@ -55,8 +61,8 @@ int pac_man::daj_kier_w_bufor()
 Wektor pac_man::daj_xy()
 {
 		Wektor pozycja;
-		pozycja.x = x;
-		pozycja.y = y;
+		pozycja.x = x+15;
+		pozycja.y = y+15;
 		return pozycja;
 }
 
@@ -89,5 +95,11 @@ pac_man::~pac_man()
 void pac_man::zmiana_kier(int nowy)
 {
 	kierunek = nowy;
+}
+
+void pac_man::zmiana_kier(int k, float xx, float yy)
+{
+	zmiana_pozycji((int)xx, (int)yy);
+	zmiana_kier(k);
 }
 

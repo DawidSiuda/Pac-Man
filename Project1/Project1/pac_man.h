@@ -15,11 +15,12 @@ class pac_man : public postac
 public:
 	void zmiana_pozycji(float,int);
 	void zmiana_pozycji(float);
+	void zmiana_pozycji(int, int);
 	void zmiana_kierunku(int);//zmienie buforowany kierunek poruszania siê pacmana(kierunek zostanie trwale zmieniony po obs³udze kolizji)
 	int daj_kierunek();
 	int daj_kier_w_bufor();
 
-	Wektor daj_xy();
+	Wektor daj_xy(); // zwraca œrodek pac-mana
 	
 	Shape *cialo;
 
@@ -35,6 +36,8 @@ public:
 	friend void obsluz_kolizje_mapy(Kolizja *, int, Wektor, int, int, pac_man*);
 protected:
 	void zmiana_kier(int); //zmienie kierunek poruszania siê pacmana
+	void zmiana_kier(int, float, float); //zmienie kierunek poruszania siê pacmana,
+										 //wraz z wyruwnaniem pozycji (wzglêdem punktu kolizji) pacmana
 private:
 	Texture tekstura;
 	CircleShape bohater;

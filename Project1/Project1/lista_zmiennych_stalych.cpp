@@ -34,3 +34,5 @@
 
 #define ILE_KOLIZJI 64
 
+#define GRANICA_KOLIZJI 1 //odleg³oœæ (w px) w jakiej wykrywana jest kolizja w punktach kolizyjnych na mapie
+

@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <Windows.h>
+//#include <Windows.h>
 
 using namespace sf;
 
@@ -134,7 +134,7 @@ int main()
 
 				okno.draw(*Pac_Man.cialo);// rysuj pacmana
 
-				rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno); // rysuj obszary kolizyjne
+				//rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno); // rysuj obszary kolizyjne
 
 				////////////////////////////////////////////////////////////
 				//USUN¥C
