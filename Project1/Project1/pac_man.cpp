@@ -36,10 +36,28 @@ void pac_man::zmiana_kierunku(int nowy_kier)
 	if (nowy_kier > 0 && nowy_kier < 5)
 	{
 		kierunek_w_buforze = nowy_kier;
-		kierunek = nowy_kier; //testowy, do usuniêcia
+		//kierunek = nowy_kier; //testowy, do usuniêcia
 	}
 	else
 		std::cout << "podano zly kierunek ///pac_man.cpp//void zmiana_kierunku()" << std::endl;
+}
+
+int pac_man::daj_kierunek()
+{
+	return kierunek;
+}
+
+int pac_man::daj_kier_w_bufor()
+{
+	return kierunek_w_buforze;
+}
+
+Wektor pac_man::daj_xy()
+{
+		Wektor pozycja;
+		pozycja.x = x;
+		pozycja.y = y;
+		return pozycja;
 }
 
 pac_man::pac_man(int ile, float pre, int kier,float xx, float yy, bool port ): kolor(zolty), postac(pre, kier)
@@ -66,5 +84,10 @@ pac_man::pac_man(int ile, float pre, int kier,float xx, float yy, bool port ): k
 pac_man::~pac_man()
 {
 	//ile_istnieje--;
+}
+
+void pac_man::zmiana_kier(int nowy)
+{
+	kierunek = nowy;
 }
 

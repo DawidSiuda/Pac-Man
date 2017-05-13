@@ -1,9 +1,6 @@
 #include "Kolizja.h"
 
-
-
-
-Kolizja Kolizja::operator=(const Kolizja &kolizja)
+Kolizja & Kolizja::operator=(const Kolizja &kolizja)
 {
 	//std::cout << "hej to ja" << std::endl;
 	if (&kolizja == this)return *this;
@@ -16,8 +13,10 @@ Kolizja Kolizja::operator=(const Kolizja &kolizja)
 
 Kolizja::Kolizja(float xx, float yy, int rrodzaj, float wwielkosc)
 {
-	x = xx;
-	y = yy;
+	pocz_x = xx;
+	pocz_y = yy;
+	x = (int)(pocz_x + (WIELKOSC ));
+	y = (int)(pocz_y + (WIELKOSC ));
 	rodzaj = rrodzaj;
 	wielkosc = wwielkosc;
 }
@@ -29,14 +28,16 @@ Kolizja::~Kolizja()
 
 void Kolizja::daj_wsp(float xx, float yy)
 {
-	x = xx;
-	y = yy;
+	pocz_x = xx;
+	pocz_y = yy;
+	x = (int)(pocz_x + (WIELKOSC ));
+	y = (int)(pocz_y + (WIELKOSC ));
 }
 
 void Kolizja::stworz()
 {
-	Color kolor(0, 0, 0,255);
+	Color kolor(0, 255, 255,100);
 	pole_kolizji.setRadius(wielkosc);
 	pole_kolizji.setFillColor(kolor);
-	pole_kolizji.setPosition(Vector2f(x, y));
+	pole_kolizji.setPosition(Vector2f(pocz_x, pocz_y));
 }

@@ -21,12 +21,36 @@ Kolizja Tablica[] =
 
 void stworz_kolizje_dla_mapy(int ile, Kolizja *kolizja)
 {
-	//kolizja[0] = Tablica[0];
-	//kolizja[0].daj_wsp(10,10);
-	//kolizja[0].stworz();
-	std::cout << "hej to ja" << std::endl;
-	std::cout << kolizja << std::endl;
+	//1
+	kolizja[0] = Tablica[0];
+	kolizja[0].daj_wsp(72,77);
+	kolizja[0].stworz(); // aktualizacja wspó³¿êdnych kolizji, ustalanie wielkoœci i koloru
+	//std::cout << kolizja[0].x << " "<< kolizja[0].y << std::endl; // wypisanie srodka kolizji
+
+	//2
+	kolizja[1] = Tablica[7];
+	kolizja[1].daj_wsp(165, 77);
+	kolizja[1].stworz();
+
+	//3
+	kolizja[3] = Tablica[2];
+	kolizja[3].daj_wsp(280, 77);
+	kolizja[3].stworz();
+
+	//64
+	kolizja[1] = Tablica[6];
+	kolizja[1].daj_wsp(72, 500);
+	kolizja[1].stworz();
+
+	//std::cout << "hej to ja" << std::endl;
+	//std::cout << Tablica[0].x << std::endl;
 
 }
 
-//void rysuj_kolizje();
+void rysuj_kolizje(int ile, Kolizja *kolizja, RenderWindow *okno)
+{
+	for (int i = 0; i < ile; i++)
+	{
+		okno->draw(kolizja[i].pole_kolizji);
+	}
+}

@@ -133,9 +133,11 @@
     <ClCompile Include="lista_zmiennych_stalych.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapa.cpp" />
+    <ClCompile Include="obsluga_kolizji_mapy.cpp" />
     <ClCompile Include="pac_man.cpp" />
     <ClCompile Include="postac.cpp" />
     <ClCompile Include="stworz_kolizje_dla_mapy.cpp" />
+    <ClCompile Include="Struktury.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ghost.h" />

@@ -30,5 +30,7 @@
 #define LGP 8
 #define LG 9
 
-#define WIELKOSC 10
+#define WIELKOSC 15
+
+#define ILE_KOLIZJI 64
 

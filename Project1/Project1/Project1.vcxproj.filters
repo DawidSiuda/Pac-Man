@@ -45,6 +45,12 @@
     <ClCompile Include="stworz_kolizje_dla_mapy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="obsluga_kolizji_mapy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Struktury.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="postac.h">

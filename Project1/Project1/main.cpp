@@ -22,6 +22,22 @@ int main()
 	mapa Mapa("mapa.jpg",50,60); //tworzy mape
 	pac_man Pac_Man(3, 50, LEWO, Mapa.pozycja_x,Mapa.pozycja_y,false);// tworzy pacmana
 	Clock Clock; // zerar pilnuj¹cy rysowania sceny wzgledem up³ynêtego czasu
+	
+	////////////////////////////////////////////////////////////
+	//USUN¥C
+			Font font;
+			if (!font.loadFromFile("arial.ttf"))
+			{
+				std::cout << "blad wczytania font-u" << std::endl;
+			}
+			Text napis;
+			napis.setFont(font);
+			//napis.setString("Hello world");
+			napis.setPosition(Vector2f(200, 700));
+			napis.setCharacterSize(24);
+			//napis.setColor(Color::Green);
+	//USUN¥C
+	//////////////////////////////////////////////////////////
 
 	while (okno.isOpen()) //g³ówna pêtla gry
 	{
@@ -86,8 +102,13 @@ int main()
 					}
 					// event.key.code == Keyboard::Escape
 					//std::cout << "wcisnieto klawisz" << std::endl;
+					break;
 				}
-					
+				case(Event::MouseButtonPressed):
+				{
+					std::cout << Mouse::getPosition(okno).x << " " << Mouse::getPosition(okno).y  << std::endl;
+					break;
+				}
 			
 			}
 		} //while
@@ -96,30 +117,50 @@ int main()
 		if (pauza == false)
 		{
 			Pac_Man.zmiana_pozycji(Clock.getElapsedTime().asSeconds());
-			//std::cout << Clock.getElapsedTime().asSeconds() << std::endl; // czas od ostatniej klatki
+
+				//std::cout << Clock.getElapsedTime().asSeconds() << std::endl; // czas od ostatniej klatki
 			Clock.restart();// czas mierzony od pocz¹tku
-
-			okno.clear(); // czyszczenie ekranu
-
+			obsluz_kolizje_mapy(Mapa.daj_mape_kolizji(),
+								ILE_KOLIZJI,
+								Pac_Man.daj_xy(),
+								Pac_Man.daj_kierunek(),
+								Pac_Man.daj_kier_w_bufor(),
+								&Pac_Man);
 			//////////////////////////////////////////////////////////////////////
 			//rysowanie sceny
+				okno.clear(); // czyszczenie ekranu
 
-			okno.draw(Mapa.rysuj()); // rysuj mape
+				okno.draw(Mapa.rysuj()); // rysuj mape
 
-			//system("cls");
-			//Vector2f wsp =	Mapa.rysuj().getPosition();
-			//std::cout << wsp.x << " " << wsp.y;
+				okno.draw(*Pac_Man.cialo);// rysuj pacmana
 
-			okno.draw(*Pac_Man.cialo);// rysuj pacmana
-			//okno.draw
+				rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno); // rysuj obszary kolizyjne
 
-			okno.display();
+				////////////////////////////////////////////////////////////
+				//USUN¥C
+					okno.draw(napis);
+					switch (Pac_Man.daj_kier_w_bufor())
+					{
+					case 1: napis.setString("GÓRA"); break;
+					case 2: napis.setString("PRAWO"); break;
+					case 3: napis.setString("DÓL"); break;
+					case 4: napis.setString("LEWO"); break;
+					}
+				//USUN¥C
+				////////////////////////////////////////////////////////////
+
+				okno.display();// wyswietl wyrysowane okno
+			//rysowanie sceny
+			//////////////////////////////////////////////////////////////////////
+						   
 		}
 		else if (pauza == true)
 		{
 			okno.clear();
 			okno.draw(Mapa.rysuj());
 			okno.draw(*Pac_Man.cialo);
+
+			rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno);
 
 			/////////////////////////////////////////////
 			//zrobic okno pauzy

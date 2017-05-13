@@ -1,6 +1,10 @@
 #include "mapa.h"
 
 
+Kolizja * mapa::daj_mape_kolizji()
+{
+	return mapa_kolizji;
+}
 
 Sprite mapa::rysuj()
 {
