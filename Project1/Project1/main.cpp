@@ -13,15 +13,24 @@ using namespace sf;
 
 int main()
 {
-	bool pauza = false; // zmienna informuje czy rozgrywaka nie jest zatrzymana
-	RenderWindow okno(VideoMode(SZEROKOSC_OKNA ,WYSOKOSC_OKNA), "Pac-Man");// tworzy okno
+	////////////////////////////////////////////////////////////
+	//tworzenie podstawowych obiektow
+		Event event; // obiekt przechowuj¹cy wszystkie zdarzenia (naciœniêcia klawiszy itp.)
+		Clock clock; // zerar pilnuj¹cy rysowania sceny wzgledem up³ynêtego czasu
+		Clock zegar; // zegar pilnuj¹cy zamykania ust pacmana
+		RenderWindow okno(VideoMode(SZEROKOSC_OKNA ,WYSOKOSC_OKNA), "Pac-Man");// tworzy okno
 
-	okno.setFramerateLimit(60); // limit FPS 60
-	okno.setVerticalSyncEnabled(true);// czekaj na synchronizacje pionow¹
+		mapa Mapa("mapa.jpg", 50, 60); //tworzy mape
+		pac_man Pac_Man(3, 100, LEWO, Mapa.pozycja_x, Mapa.pozycja_y, false);// tworzy pacmana
 
-	mapa Mapa("mapa.jpg",50,60); //tworzy mape
-	pac_man Pac_Man(3, 100, LEWO, Mapa.pozycja_x,Mapa.pozycja_y,false);// tworzy pacmana
-	Clock Clock; // zerar pilnuj¹cy rysowania sceny wzgledem up³ynêtego czasu
+		bool pauza = false; // zmienna informuje czy rozgrywaka nie jest zatrzymana
+
+	////////////////////////////////////////////////////////////
+	//przygotowanie okna aplikacji
+		okno.setFramerateLimit(60); // limit FPS 60
+		okno.setVerticalSyncEnabled(true);// czekaj na synchronizacje pionow¹
+
+	
 	
 	////////////////////////////////////////////////////////////
 	//USUN¥C
@@ -32,22 +41,20 @@ int main()
 			}
 			Text napis;
 			napis.setFont(font);
-			//napis.setString("Hello world");
 			napis.setPosition(Vector2f(200, 700));
 			napis.setCharacterSize(24);
-			//napis.setColor(Color::Green);
+
 	//USUN¥C
 	//////////////////////////////////////////////////////////
 
 	while (okno.isOpen()) //g³ówna pêtla gry
 	{
-		
-		Event event;
+
 		while (okno.pollEvent(event)) // petla obs³ugi wydarzeñ
 		{
 			switch (event.type)
 			{
-				case (Event::Closed):
+				case (Event::Closed):	//obs³uga przycisku zamkniêcia okna
 				{
 					okno.close();
 					break;
@@ -95,16 +102,14 @@ int main()
 							case(Keyboard::Escape):
 							{
 								pauza = false;
-								Clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
+								clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
 								break;
 							}
 						}
 					}
-					// event.key.code == Keyboard::Escape
-					//std::cout << "wcisnieto klawisz" << std::endl;
 					break;
 				}
-				case(Event::MouseButtonPressed):
+				case(Event::MouseButtonPressed)://obs³uga lewego przycisku myszy
 				{
 					std::cout << Mouse::getPosition(okno).x << " " << Mouse::getPosition(okno).y  << std::endl;
 					break;
@@ -116,16 +121,41 @@ int main()
 		
 		if (pauza == false)
 		{
-			Pac_Man.zmiana_pozycji(Clock.getElapsedTime().asSeconds());
+			//////////////////////////////////////////////////////////////////////
+			//liczenie nowej pozycji pacman
+			//bior¹c pod uwage czasu który up³yn¹³ od oststniej klatki
+
+				Pac_Man.zmiana_pozycji(clock.getElapsedTime().asSeconds());
 
 				//std::cout << Clock.getElapsedTime().asSeconds() << std::endl; // czas od ostatniej klatki
-			Clock.restart();// czas mierzony od pocz¹tku
-			obsluz_kolizje_mapy(Mapa.daj_mape_kolizji(),
-								ILE_KOLIZJI,
-								Pac_Man.daj_xy(),
-								Pac_Man.daj_kierunek(),
-								Pac_Man.daj_kier_w_bufor(),
-								&Pac_Man);
+				clock.restart();// czas mierzony od pocz¹tku
+
+			//liczenie nowej pozycji pacman 
+			//bior¹c pod uwage czasu który up³yn¹³ od oststniej klatki
+			//////////////////////////////////////////////////////////////////////
+
+			//////////////////////////////////////////////////////////////////////
+			//sprawdzanie kolizji pacmana z mapa
+				obsluz_kolizje_mapy(Mapa.daj_mape_kolizji(),
+									ILE_KOLIZJI,
+									Pac_Man.daj_xy(),
+									Pac_Man.daj_kierunek(),
+									Pac_Man.daj_kier_w_bufor(),
+									&Pac_Man);
+			//sprawdzanie kolizji pacmana z mapa
+			//////////////////////////////////////////////////////////////////////
+				
+			//////////////////////////////////////////////////////////////////////
+			//otwieranie i zamykanie ust pac-mana
+				if (zegar.getElapsedTime().asSeconds() > CZESTOTLIWOSC)
+				{
+					// std::cout << zegar.getElapsedTime().asSeconds() << std::endl;
+					Pac_Man.zamknij_paszcze();
+					zegar.restart();
+				}
+			//otwieranie i zamykanie ust pac-mana
+			//////////////////////////////////////////////////////////////////////
+
 			//////////////////////////////////////////////////////////////////////
 			//rysowanie sceny
 				okno.clear(); // czyszczenie ekranu
@@ -134,7 +164,7 @@ int main()
 
 				okno.draw(*Pac_Man.cialo);// rysuj pacmana
 
-				rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno); // rysuj obszary kolizyjne
+				//rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno); // rysuj obszary kolizyjne
 
 				////////////////////////////////////////////////////////////
 				//USUN¥C
@@ -156,16 +186,35 @@ int main()
 		}
 		else if (pauza == true)
 		{
-			okno.clear();
-			okno.draw(Mapa.rysuj());
-			okno.draw(*Pac_Man.cialo);
+			//////////////////////////////////////////////////////////////////////
+			//rysowanie sceny
 
-			rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno);
+				okno.clear();
+				okno.draw(Mapa.rysuj());
+				okno.draw(*Pac_Man.cialo);
 
-			/////////////////////////////////////////////
-			//zrobic okno pauzy
-			/////////////////////////////////////////////
-			okno.display();
+				//rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno);
+
+				////////////////////////////////////////////////////////////
+				//USUN¥C
+			
+					switch (pauza)
+					{
+					case true: napis.setString("PAUZA"); break;
+
+					}
+					okno.draw(napis);
+
+				//USUN¥C
+				////////////////////////////////////////////////////////////
+
+				////////////////////////////////////////////////////////////
+				//zrobic okno pauzy
+				////////////////////////////////////////////////////////////
+				okno.display();
+
+			//rysowanie sceny
+			//////////////////////////////////////////////////////////////////////
 		}
 	}
 	return 0;

@@ -58,6 +58,24 @@ int pac_man::daj_kier_w_bufor()
 	return kierunek_w_buforze;
 }
 
+void pac_man::zmiana_kier(int nowy)
+{
+	kierunek = nowy;
+
+	if(nowy >0 && nowy < 5)
+		kierunek_ust = nowy;
+
+	zmien_teksture(nowy);
+	usta = true; // usta otwarte
+}
+
+void pac_man::zmiana_kier(int k, float xx, float yy)
+{
+	zmiana_pozycji((int)xx, (int)yy);
+	zmiana_kier(k);
+}
+
+
 Wektor pac_man::daj_xy()
 {
 		Wektor pozycja;
@@ -66,17 +84,86 @@ Wektor pac_man::daj_xy()
 		return pozycja;
 }
 
-pac_man::pac_man(int ile, float pre, int kier,float xx, float yy, bool port ): kolor(zolty), postac(pre, kier)
+void pac_man::zmien_teksture(int kierunek)
+{
+	if (kierunek == LEWO)
+	{
+		if (!tekstura.loadFromFile("cialo_tekstL.png"))
+			std::cout << "nie mozna zaladowac rekstury pac-mana" << std::endl;
+		else
+		bohater.setTexture(&tekstura);
+	}
+	else
+	if (kierunek == PRAWO)
+	{
+		if (!tekstura.loadFromFile("cialo_tekstP.png"))
+			std::cout << "nie mozna zaladowac rekstury pac-mana" << std::endl;
+		else
+		bohater.setTexture(&tekstura);
+	}
+	else
+	if (kierunek == GORA)
+	{
+		if (!tekstura.loadFromFile("cialo_tekstG.png"))
+			std::cout << "nie mozna zaladowac rekstury pac-mana" << std::endl;
+		else
+		bohater.setTexture(&tekstura);
+	}
+	else
+	if (kierunek == DOL)
+	{
+		if (!tekstura.loadFromFile("cialo_tekstD.png"))
+			std::cout << "nie mozna zaladowac tekstury pac-mana" << std::endl;
+		else
+		bohater.setTexture(&tekstura);
+	}
+	else
+	if (kierunek == USTA_ZAMKNIETE)
+	{
+		if (!tekstura.loadFromFile("cialo_tekstS.png"))
+			std::cout << "nie mozna zaladowac tekstury pac-mana" << std::endl;
+		else
+			bohater.setTexture(&tekstura);
+	}
+
+}
+
+void pac_man::zamknij_paszcze()
+{
+	if (kierunek != 0) // sprawdza czy pacman siê porusza
+	{
+		if (usta)
+		{
+			zmien_teksture(USTA_ZAMKNIETE);
+			usta = false;
+		}
+		else
+		{
+			zmien_teksture(kierunek_ust);
+			usta = true;
+		}
+	}
+	else
+	{
+		zmien_teksture(kierunek_ust);
+	}
+}
+
+pac_man::pac_man(int ile, float pre, int kier,float xx, float yy, bool port ,bool u_usta ): kolor(zolty), postac(pre, kier)
 {
 	ile_zyc = ile;
 	portal = port;
 	
 	x = xx + 261; 
 	y = yy + 441;
+
+	usta = u_usta;
+	kierunek_ust = kierunek;
+
 	bohater.setRadius(15);
 	bohater.setFillColor(Color::Yellow);
 	//bohater.setOutlineColor(Color::Red);
-	if (!tekstura.loadFromFile("cialo_tekst.png"))
+	if (!tekstura.loadFromFile("cialo_tekstL.png"))
 		std::cout << "nie mozna zaladowac rekstury pac-mana" << std::endl;
 	bohater.setTexture(&tekstura);
 	//bohater.setFillColor(Color::Yellow);
@@ -92,14 +179,4 @@ pac_man::~pac_man()
 	//ile_istnieje--;
 }
 
-void pac_man::zmiana_kier(int nowy)
-{
-	kierunek = nowy;
-}
-
-void pac_man::zmiana_kier(int k, float xx, float yy)
-{
-	zmiana_pozycji((int)xx, (int)yy);
-	zmiana_kier(k);
-}
 

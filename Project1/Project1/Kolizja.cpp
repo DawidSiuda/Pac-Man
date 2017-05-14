@@ -42,7 +42,7 @@ void Kolizja::daj_wsp(float xx, float yy)
 
 void Kolizja::stworz()
 {
-	Color kolor(0, 255, 255,100);
+	Color kolor(0, 255, 255,50);
 	pole_kolizji.setRadius(wielkosc);
 	pole_kolizji.setFillColor(kolor);
 	pole_kolizji.setPosition(Vector2f(pocz_x, pocz_y));

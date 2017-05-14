@@ -23,7 +23,10 @@ Kolizja Tablica[] =
 
 	Kolizja(1,1,0,0,0,0,WIELKOSC),			/*	GP		*/
 		Kolizja(1,1,0,1,0,0,WIELKOSC),		/*	LGP		*/
-			Kolizja(1,0,0,1,0,0,WIELKOSC)	/*	LG		*/
+			Kolizja(1,0,0,1,0,0,WIELKOSC),	/*	LG		*/
+
+	Kolizja(0,0,0,0,0,0,WIELKOSC),			/*  STOJ PORTAL	*/
+		Kolizja(0,1,0,1,0,0,WIELKOSC)		/* LP BRAMA DUCHY*/
 };
 
 
@@ -119,6 +122,26 @@ void stworz_kolizje_dla_mapy(int ile, Kolizja *kolizja)
 	kolizja[15].daj_wsp(165, 210);
 	kolizja[15].stworz();
 
+	//16
+	kolizja[16] = Tablica[6];
+	kolizja[16].daj_wsp(223,210);
+	kolizja[16].stworz();
+
+	//17
+	kolizja[17] = Tablica[2];
+	kolizja[17].daj_wsp(280,210);
+	kolizja[17].stworz();
+
+	//18
+	kolizja[18] = Tablica[0];
+	kolizja[18].daj_wsp(340,210);
+	kolizja[18].stworz();
+
+	//19
+	kolizja[19] = Tablica[8];
+	kolizja[19].daj_wsp(398,210);
+	kolizja[19].stworz();
+
 	//20
 	kolizja[20] = Tablica[3];
 	kolizja[20].daj_wsp(455,210);
@@ -129,25 +152,115 @@ void stworz_kolizje_dla_mapy(int ile, Kolizja *kolizja)
 	kolizja[21].daj_wsp(553,210);
 	kolizja[21].stworz();
 
+	//22
+	kolizja[22] = Tablica[0];
+	kolizja[22].daj_wsp(223,269);
+	kolizja[22].stworz();
+
+	//23
+	kolizja[23] = Tablica[7];
+	kolizja[23].daj_wsp(280,269);
+	kolizja[23].stworz();
+
+	//24
+	kolizja[24] = Tablica[7];
+	kolizja[24].daj_wsp(340,269);
+	kolizja[24].stworz();
+
+	//25
+	kolizja[25] = Tablica[2];
+	kolizja[25].daj_wsp(398,269);
+	kolizja[25].stworz();
+
 	//26
 	kolizja[26] = Tablica[4];
 	kolizja[26].daj_wsp(165, 326);
 	kolizja[26].stworz();
+
+	//27
+	kolizja[27] = Tablica[5];
+	kolizja[27].daj_wsp(223,326);
+	kolizja[27].stworz();
+
+	//28
+	kolizja[28] = Tablica[3];
+	kolizja[28].daj_wsp(398,326);
+	kolizja[28].stworz();
+
+	//29
+	kolizja[29] = Tablica[4];
+	kolizja[29].daj_wsp(455,326);
+	kolizja[29].stworz();
+
+	//30
+	kolizja[30] = Tablica[3];
+	kolizja[30].daj_wsp(223,385);
+	kolizja[30].stworz();
+
+	//31
+	kolizja[31] = Tablica[5];
+	kolizja[31].daj_wsp(398,385);
+	kolizja[31].stworz();
 
 	//32
 	kolizja[32] = Tablica[0];
 	kolizja[32].daj_wsp(68, 442);
 	kolizja[32].stworz();
 
+	//33
+	kolizja[33] = Tablica[4];
+	kolizja[33].daj_wsp(165,442);
+	kolizja[33].stworz();
+
+	//34
+	kolizja[34] = Tablica[7];
+	kolizja[34].daj_wsp(223,442);
+	kolizja[34].stworz();
+
+	//35
+	kolizja[35] = Tablica[2];
+	kolizja[35].daj_wsp(280,442);
+	kolizja[35].stworz();
+
+	//36
+	kolizja[36] = Tablica[0];
+	kolizja[36].daj_wsp(340,442);
+	kolizja[36].stworz();
+
+	//37
+	kolizja[37] = Tablica[7];
+	kolizja[37].daj_wsp(398,442);
+	kolizja[37].stworz();
+
+	//38
+	kolizja[38] = Tablica[4];
+	kolizja[38].daj_wsp(455,442);
+	kolizja[38].stworz();
+
+	//39
+	kolizja[39] = Tablica[2];
+	kolizja[39].daj_wsp(553,442);
+	kolizja[39].stworz();
+
 	//40
 	kolizja[40] = Tablica[6];
-	kolizja[40].daj_wsp(68, 501);
+	kolizja[40].daj_wsp(68,501);
 	kolizja[40].stworz();
+
+	//41
+	kolizja[41] = Tablica[2];
+	kolizja[41].daj_wsp(108,501);
+	kolizja[41].stworz();
 	
 	//42
 	kolizja[42] = Tablica[3];
 	kolizja[42].daj_wsp(165, 501);
 	kolizja[42].stworz();
+
+	//43
+	kolizja[43] = Tablica[1];
+	kolizja[43].daj_wsp(223,501);
+	kolizja[43].stworz();
 
 	//44
 	kolizja[44] = Tablica[7];
@@ -169,10 +282,41 @@ void stworz_kolizje_dla_mapy(int ile, Kolizja *kolizja)
 	kolizja[47].daj_wsp(455, 501);
 	kolizja[47].stworz();
 
+
+	//48
+	kolizja[48] = Tablica[0];
+	kolizja[48].daj_wsp(513,501);
+	kolizja[48].stworz();
+
+	//49
+	kolizja[49] = Tablica[8];
+	kolizja[49].daj_wsp(553,501);
+	kolizja[49].stworz();
+
+	//50
+	kolizja[50] = Tablica[0];
+	kolizja[50].daj_wsp(68,558);
+	kolizja[50].stworz();
+
+	//51
+	kolizja[51] = Tablica[7];
+	kolizja[51].daj_wsp(108,558);
+	kolizja[51].stworz();
+
 	//52
-	kolizja[40] = Tablica[8];
-	kolizja[40].daj_wsp(165, 558);
-	kolizja[40].stworz();
+	kolizja[52] = Tablica[8];
+	kolizja[52].daj_wsp(165, 558);
+	kolizja[52].stworz();
+
+	//53
+	kolizja[53] = Tablica[6];
+	kolizja[53].daj_wsp(223,558);
+	kolizja[53].stworz();
+
+	//54
+	kolizja[54] = Tablica[2];
+	kolizja[54].daj_wsp(280,558);
+	kolizja[54].stworz();
 
 	//55
 	kolizja[55] = Tablica[0];
@@ -184,10 +328,55 @@ void stworz_kolizje_dla_mapy(int ile, Kolizja *kolizja)
 	kolizja[56].daj_wsp(398,558);
 	kolizja[56].stworz();
 
+	//57
+	kolizja[57] = Tablica[6];
+	kolizja[57].daj_wsp(455,558);
+	kolizja[57].stworz();
+
+	//58
+	kolizja[58] = Tablica[7];
+	kolizja[58].daj_wsp(513,558);
+	kolizja[58].stworz();
+
+	//59
+	kolizja[59] = Tablica[2];
+	kolizja[59].daj_wsp(553,558);
+	kolizja[59].stworz();
+
+	//60
+	kolizja[60] = Tablica[6];
+	kolizja[60].daj_wsp(68,617);
+	kolizja[60].stworz();
+
+	//61
+	kolizja[61] = Tablica[7];
+	kolizja[61].daj_wsp(280,617);
+	kolizja[61].stworz();
+
 	//62
 	kolizja[62] = Tablica[7];
 	kolizja[62].daj_wsp(340,617);
 	kolizja[62].stworz();
+
+	//63
+	kolizja[63] = Tablica[8];
+	kolizja[63].daj_wsp(553,617);
+	kolizja[63].stworz();
+
+	//64 //portal lewy
+	kolizja[64] = Tablica[9];
+	kolizja[64].daj_wsp(20,326);
+	kolizja[64].stworz();
+
+	//65 //portal prawy
+	kolizja[65] = Tablica[9];
+	kolizja[65].daj_wsp(600, 326);
+	kolizja[65].stworz();
+
+	//66 //duchy wyjscie
+	kolizja[66] = Tablica[10];
+	kolizja[66].daj_wsp(310, 269);
+	kolizja[66].stworz();
 
 	//std::cout << "hej to ja" << std::endl;
 	//std::cout << Tablica[0].x << std::endl;

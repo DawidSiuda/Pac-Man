@@ -2,7 +2,6 @@
 
 #include "mapa.h"
 #include "pac_man.h"
-//#include "Kolizja.h"
 
 #include "Struktury.cpp"
 
@@ -50,7 +49,7 @@ void obsluz_kolizje_mapy(Kolizja *mapa_kolizji,
 		{
 			
 			//std::cout << "KKolizja" << std::endl;
-			std::cout << "pac_man " << pozycja_pacmana.x << " "<< pozycja_pacmana.y  << std::endl;
+			//std::cout << "pac_man " << pozycja_pacmana.x << " "<< pozycja_pacmana.y  << std::endl;
 			//std::cout << "obiekt nr:"<< i << " " << mapa_kolizji[i].x << " " << mapa_kolizji[i].y << std::endl;
 			
 
@@ -59,11 +58,11 @@ void obsluz_kolizje_mapy(Kolizja *mapa_kolizji,
 
 					////////////////////////////////////////////
 					//wyruwnywanie pacmana 
-					//			(wyrównanie pac-mana podczas zmiany kierunku tak, aby szed³ dok³adnie po wyznaczonym torze)
+					//(wyrównanie pac-mana podczas zmiany kierunku tak, aby szed³ dok³adnie po wyznaczonym torze)
 						if (kierunek != kier_w_bufor)
-						{
-							PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
-						}
+							{
+								PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
+							}
 
 					////////////////////////////////////////////
 					//sprawdzanie kolizji w punktach kolizyjnych
@@ -80,15 +79,27 @@ void obsluz_kolizje_mapy(Kolizja *mapa_kolizji,
 						if (kier_w_bufor == DOL && mapa_kolizji[i].DostKier.D == true)
 							{
 								PacMan->zmiana_kier(DOL);
-							}else
-						if (kier_w_bufor == GORA && mapa_kolizji[i].DostKier.G == true)
+						}
+						else
+							if (kier_w_bufor == GORA && mapa_kolizji[i].DostKier.G == true)
 							{
 								PacMan->zmiana_kier(GORA);
 							}
 						else
+						// sprawdzanie czy pacman znajduje sie w portalu
+						if (mapa_kolizji[i].DostKier.G == false && mapa_kolizji[i].DostKier.P == false &&
+									mapa_kolizji[i].DostKier.D == false && mapa_kolizji[i].DostKier.L == false)
+							{
+							std::cout << "pac_man " << pozycja_pacmana.x << " " << pozycja_pacmana.y << std::endl;
+								if((pozycja_pacmana.x+1 )> 35 && (pozycja_pacmana.x - 1 )< 35)
+									PacMan->zmiana_pozycji(598, 326);
+								if ((pozycja_pacmana.x + 1)> 614 && (pozycja_pacmana.x - 1) <  614)
+									PacMan->zmiana_pozycji(22, 326);
+							}
+						else
 							{
 								///////////////////////////////////////////////////
-								// if-y s¹ aby pacman nie zatrzymwa³ sie za rozwidleniach 
+								// if-y s¹ aby pacman nie zatrzymwa³ sie na rozwidleniach 
 								// gdy kierunek w buforze powoduje kolizje
 
 								if (kierunek == GORA && mapa_kolizji[i].DostKier.G == true)
@@ -110,7 +121,7 @@ void obsluz_kolizje_mapy(Kolizja *mapa_kolizji,
 									{
 										PacMan->zmiana_kier(STOJ);
 									}
-								}
+							}
 				}
 		}
 		

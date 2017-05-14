@@ -14,7 +14,8 @@
 #define LEWO 4
 #define STOJ 0
 
-/*rodzaje kolizji (mo¿liwe obecne zmiany kierunków)
+//rodzaje kolizji
+/* (mo¿liwe obecne zmiany kierunków)
 			 L - LEWO
 			 P - PRAWO
 			 G - GÓRA
@@ -30,9 +31,11 @@
 #define LGP 8
 #define LG 9
 
-#define WIELKOSC 15
-
-#define ILE_KOLIZJI 64
-
+#define WIELKOSC 15 // wielkosc rysowanego pola kolizji
+#define ILE_KOLIZJI 67// ilosc kolizji na mapie
 #define GRANICA_KOLIZJI 1 //odleg³oœæ (w px) w jakiej wykrywana jest kolizja w punktach kolizyjnych na mapie
+
+//czestotliwosc zamykania ust przez pacmana
+#define CZESTOTLIWOSC 0.1
+#define USTA_ZAMKNIETE 5
 

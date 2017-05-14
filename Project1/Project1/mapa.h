@@ -34,7 +34,7 @@ public:
 
 private:
 
-	Kolizja mapa_kolizji[65];
+	Kolizja mapa_kolizji[ILE_KOLIZJI];
 	Sprite Obraz;
 	Texture tekstura;
 };
