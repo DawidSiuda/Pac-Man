@@ -16,7 +16,7 @@ public:
 
 	Kolizja& operator = (const Kolizja &);
 
-	Kolizja(float x = 0, float y=0, int rodzaj = 0, float wielkosc=20);
+	Kolizja(bool = 0, bool = 0, bool = 0, bool = 0, float x = 0, float y=0, float wielkosc=20);
 	~Kolizja();
 
 	friend void obsluz_kolizje_mapy(Kolizja *, int, Wektor, int, int, pac_man*);
@@ -35,7 +35,7 @@ private:
 	float pocz_x; // wspó³rzêdne lew. gór. rogu figury
 	float pocz_y; // wspó³rzêdne lew. gór. rogu figury
 	
-	int rodzaj;
+	DostepnyKierunek DostKier;
 	float wielkosc;
 };
 

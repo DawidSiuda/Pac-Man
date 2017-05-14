@@ -44,90 +44,74 @@ void obsluz_kolizje_mapy(Kolizja *mapa_kolizji,
 	//sprawdzanie czy pac-man nie znajduje sie w którymœ z punktów kolizyjnych
 	for (int i = 0; i < ile_kolizji; i++)
 	{
+
+		
 		if ((mapa_kolizji[i].x + GRANICA_KOLIZJI) > pozycja_pacmana.x && (mapa_kolizji[i].x - GRANICA_KOLIZJI) < pozycja_pacmana.x)
 		{
 			
 			//std::cout << "KKolizja" << std::endl;
-			std::cout << "pac_man" << pozycja_pacmana.x << " "<< pozycja_pacmana.y  << std::endl;
+			std::cout << "pac_man " << pozycja_pacmana.x << " "<< pozycja_pacmana.y  << std::endl;
 			//std::cout << "obiekt nr:"<< i << " " << mapa_kolizji[i].x << " " << mapa_kolizji[i].y << std::endl;
 			
-			if ((mapa_kolizji[i].y + GRANICA_KOLIZJI) > pozycja_pacmana.y && (mapa_kolizji[i].y - GRANICA_KOLIZJI) < pozycja_pacmana.y)
-			{
-				// POPRAWIC ROZPOZNAWANIE KIERUNKÓW
-				if (kier_w_bufor == LEWO)
+
+				if ((mapa_kolizji[i].y + GRANICA_KOLIZJI) > pozycja_pacmana.y && (mapa_kolizji[i].y - GRANICA_KOLIZJI) < pozycja_pacmana.y)
 				{
-					switch (mapa_kolizji[i].rodzaj)
-					{
-						case LDP: 
-						case LD:
-						case LGDP:
-						case LGD:
-						case LGP:
-						case LG:	
-							PacMan->zmiana_kier(LEWO);
-							//PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
-							break;
-						default:
-							PacMan->zmiana_kier(STOJ);
-							//PacMan->zmiana_pozycji((int)mapa_kolizji[i].x-15, (int)mapa_kolizji[i].y-15);
-					}
-				}else
-				if (kier_w_bufor == PRAWO)
-				{
-					switch (mapa_kolizji[i].rodzaj)
-					{
-					case DP:
-					case LDP:
-					case GDP:
-					case LGDP:
-					case GP:
-					case LGP:
-						PacMan->zmiana_kier(PRAWO);
-						//PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
-						break;
-					default:
-						PacMan->zmiana_kier(STOJ);
-						//PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
-					}
+
+					////////////////////////////////////////////
+					//wyruwnywanie pacmana 
+					//			(wyrównanie pac-mana podczas zmiany kierunku tak, aby szed³ dok³adnie po wyznaczonym torze)
+						if (kierunek != kier_w_bufor)
+						{
+							PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
+						}
+
+					////////////////////////////////////////////
+					//sprawdzanie kolizji w punktach kolizyjnych
+						if (kier_w_bufor == LEWO && mapa_kolizji[i].DostKier.L == true)
+							{
+
+								PacMan->zmiana_kier(LEWO);
+
+							}else
+						if (kier_w_bufor == PRAWO && mapa_kolizji[i].DostKier.P == true)
+							{
+								PacMan->zmiana_kier(PRAWO);
+							}else
+						if (kier_w_bufor == DOL && mapa_kolizji[i].DostKier.D == true)
+							{
+								PacMan->zmiana_kier(DOL);
+							}else
+						if (kier_w_bufor == GORA && mapa_kolizji[i].DostKier.G == true)
+							{
+								PacMan->zmiana_kier(GORA);
+							}
+						else
+							{
+								///////////////////////////////////////////////////
+								// if-y s¹ aby pacman nie zatrzymwa³ sie za rozwidleniach 
+								// gdy kierunek w buforze powoduje kolizje
+
+								if (kierunek == GORA && mapa_kolizji[i].DostKier.G == true)
+									{
+									}
+								else
+								if (kierunek == DOL && mapa_kolizji[i].DostKier.D == true)
+									{
+									}
+								else
+								if (kierunek == LEWO && mapa_kolizji[i].DostKier.L == true)
+									{
+									}
+								else
+								if (kierunek == PRAWO && mapa_kolizji[i].DostKier.P == true)
+									{
+									}
+								else
+									{
+										PacMan->zmiana_kier(STOJ);
+									}
+								}
 				}
-				else
-				if (kier_w_bufor == GORA)
-				{
-					switch (mapa_kolizji[i].rodzaj)
-					{
-					case GDP:
-					case LGDP:
-					case LGD:
-					case GP:
-					case LGP:
-					case LG:
-						PacMan->zmiana_kier(GORA);
-						//PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
-						break;
-					default:
-						PacMan->zmiana_kier(STOJ);
-						//PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
-					}
-				}else
-				if (kier_w_bufor == DOL)
-				{
-					switch (mapa_kolizji[i].rodzaj)
-					{
-					case DP:
-					case LDP:
-					case LD:
-					case GDP:
-					case LGDP:
-					case LGD:
-						PacMan->zmiana_kier(DOL);
-						//PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
-						break;
-					default:
-						PacMan->zmiana_kier(STOJ);
-						//PacMan->zmiana_pozycji((int)mapa_kolizji[i].x - 15, (int)mapa_kolizji[i].y - 15);
-					}
-				}
-			}
 		}
 		
 	}

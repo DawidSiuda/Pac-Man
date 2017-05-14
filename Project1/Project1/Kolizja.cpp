@@ -2,22 +2,28 @@
 
 Kolizja & Kolizja::operator=(const Kolizja &kolizja)
 {
-	//std::cout << "hej to ja" << std::endl;
+
 	if (&kolizja == this)return *this;
-	//std::cout << "hej to ja" << std::endl;
-	rodzaj = kolizja.rodzaj;
-	//std::cout << "hej to ja" << std::endl;
+
+	DostKier.G = kolizja.DostKier.G;
+	DostKier.P = kolizja.DostKier.P;
+	DostKier.D = kolizja.DostKier.D;
+	DostKier.L = kolizja.DostKier.L;
+	
 	wielkosc = kolizja.wielkosc;
-	//std::cout << "hej to ja" << std::endl;
+
 }
 
-Kolizja::Kolizja(float xx, float yy, int rrodzaj, float wwielkosc)
+Kolizja::Kolizja(bool gora, bool prawo, bool dol, bool lewo, float xx, float yy, float wwielkosc)
 {
 	pocz_x = xx;
 	pocz_y = yy;
 	x = (int)(pocz_x + (WIELKOSC ));
 	y = (int)(pocz_y + (WIELKOSC ));
-	rodzaj = rrodzaj;
+	DostKier.G = gora;
+	DostKier.P = prawo;
+	DostKier.D = dol;
+	DostKier.L = lewo;
 	wielkosc = wwielkosc;
 }
 

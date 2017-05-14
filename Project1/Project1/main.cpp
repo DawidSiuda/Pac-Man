@@ -16,11 +16,11 @@ int main()
 	bool pauza = false; // zmienna informuje czy rozgrywaka nie jest zatrzymana
 	RenderWindow okno(VideoMode(SZEROKOSC_OKNA ,WYSOKOSC_OKNA), "Pac-Man");// tworzy okno
 
-	//okno.setFramerateLimit(60); // limit FPS 60
+	okno.setFramerateLimit(60); // limit FPS 60
 	okno.setVerticalSyncEnabled(true);// czekaj na synchronizacje pionow¹
 
 	mapa Mapa("mapa.jpg",50,60); //tworzy mape
-	pac_man Pac_Man(3, 50, LEWO, Mapa.pozycja_x,Mapa.pozycja_y,false);// tworzy pacmana
+	pac_man Pac_Man(3, 100, LEWO, Mapa.pozycja_x,Mapa.pozycja_y,false);// tworzy pacmana
 	Clock Clock; // zerar pilnuj¹cy rysowania sceny wzgledem up³ynêtego czasu
 	
 	////////////////////////////////////////////////////////////
@@ -134,7 +134,7 @@ int main()
 
 				okno.draw(*Pac_Man.cialo);// rysuj pacmana
 
-				//rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno); // rysuj obszary kolizyjne
+				rysuj_kolizje(ILE_KOLIZJI, Mapa.daj_mape_kolizji(), &okno); // rysuj obszary kolizyjne
 
 				////////////////////////////////////////////////////////////
 				//USUN¥C
