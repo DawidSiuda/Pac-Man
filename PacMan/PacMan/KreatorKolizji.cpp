@@ -11,24 +11,24 @@ using namespace sf;
 
 PobraneUstawieniaMapy MapaPodstawowa(110, 110);
 
-
 Kolizja Tablica[] =
 {
 	Kolizja(0,1,1,0,0,0,WIELKOSC),			/*	LD		*/
-		Kolizja(0,1,1,1,0,0,WIELKOSC),		/*	LDP		*/
-			Kolizja(0,0,1,1,0,0,WIELKOSC),	/*	LD		*/
+	Kolizja(0,1,1,1,0,0,WIELKOSC),		/*	LDP		*/
+	Kolizja(0,0,1,1,0,0,WIELKOSC),	/*	LD		*/
 
 	Kolizja(1,1,1,0,0,0,WIELKOSC),			/*	GDP		*/
-		Kolizja(1,1,1,1,0,0,WIELKOSC),		/*	LGDP	*/
-			Kolizja(1,0,1,1,0,0,WIELKOSC),	/*	LGD		*/
+	Kolizja(1,1,1,1,0,0,WIELKOSC),		/*	LGDP	*/
+	Kolizja(1,0,1,1,0,0,WIELKOSC),	/*	LGD		*/
 
 	Kolizja(1,1,0,0,0,0,WIELKOSC),			/*	GP		*/
-		Kolizja(1,1,0,1,0,0,WIELKOSC),		/*	LGP		*/
-			Kolizja(1,0,0,1,0,0,WIELKOSC),	/*	LG		*/
+	Kolizja(1,1,0,1,0,0,WIELKOSC),		/*	LGP		*/
+	Kolizja(1,0,0,1,0,0,WIELKOSC),	/*	LG		*/
 
 	Kolizja(0,0,0,0,0,0,WIELKOSC),			/*  STOJ PORTAL	*/
-		Kolizja(0,1,0,1,0,0,WIELKOSC)		/* LP BRAMA DUCHY*/
+	Kolizja(0,1,0,1,0,0,WIELKOSC)		/* LP BRAMA DUCHY*/
 };
+
 
 
 void stworz_kolizje_dla_mapy(int ile, Kolizja *kolizja)
@@ -386,8 +386,9 @@ void stworz_kolizje_dla_mapy(int ile, Kolizja *kolizja)
 
 void rysuj_kolizje(int ile, Kolizja *kolizja, RenderWindow *okno)
 {
-	for (int i = 0; i < ile; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		okno->draw(kolizja[i].pole_kolizji);
+		//kolizja[i].
 	}
 }
