@@ -28,8 +28,8 @@ public:
 	void zamknij_paszcze();// ustawia pe³n¹ teksture pacmana(ustawia teksture bez wciêcia)
 
 
-	PacMan(int ile_zyc = 3,
-		float predkosc = 1,
+	PacMan(int ile_zyc ,
+		float predkosc ,
 		int kierunek = PRAWO,
 		float xx = 110,
 		float yy = 110,

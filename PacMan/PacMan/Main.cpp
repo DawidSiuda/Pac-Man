@@ -2,6 +2,8 @@
 #include "Duch.h"
 #include "PacMan.h"
 #include "Lista_zmiennych_stalych.cpp"
+
+
 //#include "stworz_kolizje_dla_mapy.cpp"
 
 #include <SFML/Graphics.hpp>
@@ -19,9 +21,9 @@ int main()
 	Clock zegar; // zegar pilnuj¹cy zamykania ust pacmana
 	RenderWindow okno(VideoMode(SZEROKOSC_OKNA, WYSOKOSC_OKNA), "Pac-Man");// tworzy okno
 
-	Mapa mapa("mapa.jpg", 50, 60); //tworzy mape
+	Mapa mapa("mapa.jpg", Mapa::dajMape(), 50, 60); //tworzy mape
 	PacMan Pac_Man(3, 100, LEWO, mapa.pozycja_x, mapa.pozycja_y, false);// tworzy pacmana
-
+	mapa.wczytajMapeZPliku();
 	bool pauza = false; // zmienna informuje czy rozgrywaka nie jest zatrzymana
 
 						////////////////////////////////////////////////////////////

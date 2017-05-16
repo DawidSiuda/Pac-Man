@@ -13,3 +13,12 @@ struct DostepnyKierunek
 	bool D; //dó³
 	bool L; //lewo
 };
+
+struct PobraneUstawieniaMapy 
+{
+	const float StartBohateraX;
+	const float StartBohateraY;
+	PobraneUstawieniaMapy(float x, float y) :StartBohateraX(x), StartBohateraY(y)
+	{
+	}
+};

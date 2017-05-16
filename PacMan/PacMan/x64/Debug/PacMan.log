@@ -1,7 +1,5 @@
-﻿  PacMan.cpp
-d:\pulpit\nowy folder\pacman\pacman\kolizja.h(9): warning C4091: 'extern ': ignored on left of 'PacMan' when no variable is declared
-d:\pulpit\nowy folder\pacman\pacman\pacman.cpp(26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\pulpit\nowy folder\pacman\pacman\pacman.cpp(36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\pulpit\nowy folder\pacman\pacman\pacman.cpp(37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  PacMan.vcxproj -> D:\pulpit\Nowy folder\PacMan\x64\Debug\PacMan.exe
-  PacMan.vcxproj -> D:\pulpit\Nowy folder\PacMan\x64\Debug\PacMan.pdb (Partial PDB)
+﻿  Mapa.cpp
+d:\pulpit\glowny_pac-man\pacman\pacman\kolizja.h(9): warning C4091: 'extern ': ignored on left of 'PacMan' when no variable is declared
+d:\pulpit\glowny_pac-man\pacman\pacman\mapa.cpp(53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  PacMan.vcxproj -> D:\pulpit\glowny_pac-man\PacMan\x64\Debug\PacMan.exe
+  PacMan.vcxproj -> D:\pulpit\glowny_pac-man\PacMan\x64\Debug\PacMan.pdb (Partial PDB)

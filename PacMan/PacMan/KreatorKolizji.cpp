@@ -9,24 +9,25 @@
 #include <iostream>
 using namespace sf;
 
+PobraneUstawieniaMapy MapaPodstawowa(110, 110);
 
 
 Kolizja Tablica[] =
 {
 	Kolizja(0,1,1,0,0,0,WIELKOSC),			/*	LD		*/
-	Kolizja(0,1,1,1,0,0,WIELKOSC),		/*	LDP		*/
-	Kolizja(0,0,1,1,0,0,WIELKOSC),	/*	LD		*/
+		Kolizja(0,1,1,1,0,0,WIELKOSC),		/*	LDP		*/
+			Kolizja(0,0,1,1,0,0,WIELKOSC),	/*	LD		*/
 
 	Kolizja(1,1,1,0,0,0,WIELKOSC),			/*	GDP		*/
-	Kolizja(1,1,1,1,0,0,WIELKOSC),		/*	LGDP	*/
-	Kolizja(1,0,1,1,0,0,WIELKOSC),	/*	LGD		*/
+		Kolizja(1,1,1,1,0,0,WIELKOSC),		/*	LGDP	*/
+			Kolizja(1,0,1,1,0,0,WIELKOSC),	/*	LGD		*/
 
 	Kolizja(1,1,0,0,0,0,WIELKOSC),			/*	GP		*/
-	Kolizja(1,1,0,1,0,0,WIELKOSC),		/*	LGP		*/
-	Kolizja(1,0,0,1,0,0,WIELKOSC),	/*	LG		*/
+		Kolizja(1,1,0,1,0,0,WIELKOSC),		/*	LGP		*/
+			Kolizja(1,0,0,1,0,0,WIELKOSC),	/*	LG		*/
 
 	Kolizja(0,0,0,0,0,0,WIELKOSC),			/*  STOJ PORTAL	*/
-	Kolizja(0,1,0,1,0,0,WIELKOSC)		/* LP BRAMA DUCHY*/
+		Kolizja(0,1,0,1,0,0,WIELKOSC)		/* LP BRAMA DUCHY*/
 };
 
 
@@ -47,7 +48,7 @@ void stworz_kolizje_dla_mapy(int ile, Kolizja *kolizja)
 	kolizja[0].stworz(); // aktualizacja wspó³¿êdnych kolizji, ustalanie wielkoœci i koloru
 						 //std::cout << kolizja[0].x << " "<< kolizja[0].y << std::endl; // wypisanie srodka kolizji
 
-						 //1
+	//1
 	kolizja[1] = Tablica[1];
 	kolizja[1].daj_wsp(165, 77);
 	kolizja[1].stworz();
@@ -318,7 +319,7 @@ void stworz_kolizje_dla_mapy(int ile, Kolizja *kolizja)
 	kolizja[54].daj_wsp(280, 558);
 	kolizja[54].stworz();
 
-	//55
+	//55/////////////////////////////////////////////////////////
 	kolizja[55] = Tablica[0];
 	kolizja[55].daj_wsp(340, 558);
 	kolizja[55].stworz();
