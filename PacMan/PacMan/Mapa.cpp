@@ -182,6 +182,11 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 	return 0;
 }
 
+int Mapa::iloscKolizji()
+{
+	return ileKolizji;
+}
+
 void Mapa::rysuj_kolizje(RenderWindow * okno)
 {
 	for (int i = 0; i < ileKolizji; i++)

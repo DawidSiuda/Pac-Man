@@ -21,9 +21,10 @@ public:
 	const short pozycja_y; // y w którym rozpoczyna siê mapa w oknie g³ównym
 
 	int wczytajMapeZPliku(string = "mapa.txt");
+	int iloscKolizji();						//zwraca ilosc kolizji zdefiniowanych na mapie
 	void rysuj_kolizje(RenderWindow *okno); //rysuje punkty kolizyjne mapy, w oknie do którego podano mu wska¿nik
-	bool WczytanoMape();					// zwraca wartosc bool "WczytywanieZakonczonePowodzeniem"
-	Kolizja *dajMapeKolizji();				// zwraca mape kolizji planszy
+	bool WczytanoMape();					//zwraca wartosc bool "WczytywanieZakonczonePowodzeniem"
+	Kolizja *dajMapeKolizji();				//zwraca mape kolizji planszy
 	Sprite rysuj();							//zwraca wielok¹t w którym wyswietlana jest mapa
 	Wektor dajStartPacMan();				//zwraca pozycje startow¹ pacmana pobrana z pliku .txt z mapa
 
@@ -33,6 +34,7 @@ public:
 
 	friend class Kolizja;
 	friend void obsluz_kolizje_mapy(Kolizja*, int, Wektor, int, int, PacMan*);
+	
 
 private:
 

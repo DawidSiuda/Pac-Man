@@ -7,6 +7,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+extern void obsluzBuforRuchu(Postac *);
+extern void obsluzKolizjeMapy(Postac *, int, Kolizja *);
 using namespace sf;
 
 int main()
@@ -37,12 +39,14 @@ int main()
 	okno.setFramerateLimit(60); // limit FPS 60
 	okno.setVerticalSyncEnabled(true);// czekaj na synchronizacje pionow¹
 
-	//////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
+	//g³ówna pêtla aplikacji
 
-	while (okno.isOpen()) //g³ówna pêtla gry
+	while (okno.isOpen()) 
 	{
 
-		while (okno.pollEvent(event)) // petla obs³ugi wydarzeñ
+		// petla obs³ugi wydarzeñ
+		while (okno.pollEvent(event))// petla obs³ugi wydarzeñ
 		{
 			switch (event.type)
 			{
@@ -118,43 +122,32 @@ int main()
 			Pac_Man.zmiana_pozycji(przesuniecie,Pac_Man.daj_kierunek());
 			clock.restart();// czas mierzony od pocz¹tku
 
-
-			//////////////////////////////////////////////////////////////////////
-			//sprawdzanie kolizji pacmana z mapa
-			obsluz_kolizje_mapy(mapa.dajMapeKolizji(),
-				ILE_KOLIZJI,
-				Pac_Man.daj_xy(),
-				Pac_Man.daj_kierunek(),
-				Pac_Man.daj_kier_w_bufor(),
-				&Pac_Man);
-			//sprawdzanie kolizji pacmana z mapa
-			//////////////////////////////////////////////////////////////////////
-
-			//////////////////////////////////////////////////////////////////////
 			//otwieranie i zamykanie ust pac-mana
-			if (zegar.getElapsedTime().asSeconds() > CZESTOTLIWOSC)
+			if (zegar.getElapsedTime().asSeconds() > TIME_TO_CHANGE_MOUTH)
 			{
-				// std::cout << zegar.getElapsedTime().asSeconds() << std::endl;
 				Pac_Man.zamknij_paszcze();
 				zegar.restart();
 			}
-			//otwieranie i zamykanie ust pac-mana
-			//////////////////////////////////////////////////////////////////////
+
+			//sprawdzanie kolizji pac-mana z map¹
+			obsluzBuforRuchu(&Pac_Man);
+			obsluzKolizjeMapy(&Pac_Man, mapa.iloscKolizji(), mapa.dajMapeKolizji());
 
 			//////////////////////////////////////////////////////////////////////
 			//rysowanie sceny
-			okno.clear(); // czyszczenie ekranu
+			
+				okno.clear(); // czyszczenie ekranu
 
-			okno.draw(mapa.rysuj()); // rysuj mape
+				okno.draw(mapa.rysuj()); // rysuj mape
 
-			okno.draw(*Pac_Man.cialo);// rysuj pacmana
+				okno.draw(*Pac_Man.cialo);// rysuj pacmana
 
-			//mapa.rysuj_kolizje(&okno); // rysuj obszary kolizyjne
+				//mapa.rysuj_kolizje(&okno); // rysuj obszary kolizyjne
 
-			////////////////////////////////////////////////////////////
-			//USUN¥C
-			#ifdef TEST
-
+				
+#ifdef TEST
+				////////////////////////////////////////////////////////////
+				//USUN¥C
 				Font font;
 				if (!font.loadFromFile("arial.ttf"))
 				{
@@ -171,14 +164,17 @@ int main()
 				case 2: napis.setString("PRAWO"); break;
 				case 3: napis.setString("DÓL"); break;
 				case 4: napis.setString("LEWO"); break;
-				}
-			#endif // TEST
-			//USUN¥C
-			////////////////////////////////////////////////////////////
 
-			okno.display();// wyswietl wyrysowane okno
-						   //rysowanie sceny
-						   //////////////////////////////////////////////////////////////////////
+				}
+				okno.draw(napis);
+				//USUN¥C
+				////////////////////////////////////////////////////////////
+#endif // TEST
+
+				okno.display();// wyswietl wyrysowane okno
+
+			//rysowanie sceny
+			//////////////////////////////////////////////////////////////////////
 
 		}
 		else if (pauza == true)
@@ -187,14 +183,15 @@ int main()
 			//rysowanie sceny
 
 			okno.clear();
+
 			okno.draw(mapa.rysuj());
 			okno.draw(*Pac_Man.cialo);
-
 			//mapa.rysuj_kolizje(&okno);
 
+#ifdef TEST
 			////////////////////////////////////////////////////////////
 			//USUN¥C
-			#ifdef TEST
+
 				Font font;
 				if (!font.loadFromFile("arial.ttf"))
 				{
@@ -210,13 +207,16 @@ int main()
 
 				}
 				okno.draw(napis);
-			#endif // TEST
+		
 			//USUN¥C
 			////////////////////////////////////////////////////////////
+#endif // TEST
 
-			////////////////////////////////////////////////////////////
 			//zrobic okno pauzy
-			////////////////////////////////////////////////////////////
+			{
+					NoweOknoKomunikatu komunikatPauza("Pauza \n      Press Esc to Continue",&okno);
+					komunikatPauza.wyswietl();
+			}
 			okno.display();
 
 			//rysowanie sceny

@@ -19,7 +19,7 @@
 #define GRANICA_KOLIZJI 1 //odleg³oœæ (w px) w jakiej wykrywana jest kolizja w punktach kolizyjnych na mapie
 
 //czestotliwosc zamykania ust przez pacmana
-#define CZESTOTLIWOSC 0.1
+#define TIME_TO_CHANGE_MOUTH 0.1
 #define USTA_ZAMKNIETE 5
 
 /*
