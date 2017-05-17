@@ -1,7 +1,7 @@
 #include "PacMan.h"
 
 
-void PacMan::zmiana_pozycji(float czas_od_oststniej_klatki, int gdzie)
+void PacMan::zmiana_pozycji(float czas_od_oststniej_klatki, int gdzie, bool byTime)
 {
 	switch (gdzie)
 	{
@@ -26,9 +26,29 @@ void PacMan::zmiana_pozycji(float czas_od_oststniej_klatki, int gdzie)
 	cialo->setPosition((int)x, (int)y);
 }
 
-void PacMan::zmiana_pozycji(float czas_od_oststniej_klatki)
+void PacMan::zmiana_pozycji(float ILEpx, int kierunek)
 {
-	zmiana_pozycji(czas_od_oststniej_klatki, kierunek);
+	switch (kierunek)
+	{
+	case LEWO:
+		x = x - ILEpx;
+		break;
+	case PRAWO:
+		x = x + ILEpx;
+		break;
+	case GORA:
+		y = y - ILEpx;
+		break;
+	case DOL:
+		y = y + ILEpx;
+		break;
+	case STOJ:
+		break;
+	default:
+		std::cout << "zly kierunek pac-mana: " << kierunek << std::endl;
+	}
+	//std::cout << x << " " << y << std::endl;
+	cialo->setPosition((int)x, (int)y);
 }
 
 void PacMan::zmiana_pozycji(int xx, int yy)
@@ -37,15 +57,16 @@ void PacMan::zmiana_pozycji(int xx, int yy)
 	y = yy;
 }
 
-void PacMan::zmiana_kierunku(int nowy_kier)
+void PacMan::zmianaBuforowanegoKierunku(int nowyKierunek)
 {
-	if (nowy_kier > 0 && nowy_kier < 5)
+	if (nowyKierunek > 0 && nowyKierunek < 5)
 	{
-		kierunek_w_buforze = nowy_kier;
-		//kierunek = nowy_kier; //testowy, do usuniêcia
+		kierunek_w_buforze = nowyKierunek;
 	}
 	else
+	{
 		std::cout << "podano zly kierunek ///pac_man.cpp//void zmiana_kierunku()" << std::endl;
+	}
 }
 
 int PacMan::daj_kierunek()
@@ -66,7 +87,7 @@ void PacMan::zmiana_kier(int nowy)
 		kierunek_ust = nowy;
 
 	zmien_teksture(nowy);
-	usta = true; // usta otwarte
+	ustaZamkniete = true;
 }
 
 void PacMan::zmiana_kier(int k, float xx, float yy)
@@ -132,15 +153,15 @@ void PacMan::zamknij_paszcze()
 {
 	if (kierunek != 0) // sprawdza czy pacman siê porusza
 	{
-		if (usta)
+		if (ustaZamkniete == true)
 		{
 			zmien_teksture(USTA_ZAMKNIETE);
-			usta = false;
+			ustaZamkniete = false;
 		}
 		else
 		{
 			zmien_teksture(kierunek_ust);
-			usta = true;
+			ustaZamkniete = true;
 		}
 	}
 	else
@@ -149,34 +170,54 @@ void PacMan::zamknij_paszcze()
 	}
 }
 
-PacMan::PacMan(int ile, float pre, int kier, float xx, float yy, bool port, bool u_usta) : Postac(pre, kier)
+PacMan::PacMan(float predkosc, float  xStartuWeza, float yStartuWeza, bool port, bool u_usta, int ile, int kier) : Postac(predkosc, kier)
 {
 	ile_zyc = ile;
-	portal = port;
+	//portal = port;
 
-	x = xx + 261;
-	y = yy + 441;
+	x = xStartuWeza;
+	y = yStartuWeza;
 
-	usta = u_usta;
+	ustaZamkniete = u_usta;
 	kierunek_ust = kierunek;
 
 	bohater.setRadius(15);
 	bohater.setFillColor(Color::Yellow);
-	//bohater.setOutlineColor(Color::Red);
+
 	if (!tekstura.loadFromFile("cialo_tekstL.png"))
 		std::cout << "nie mozna zaladowac rekstury pac-mana" << std::endl;
+
 	bohater.setTexture(&tekstura);
-	//bohater.setFillColor(Color::Yellow);
-	//bohater.setOutlineThickness(5);
 	bohater.setPosition(x, y);
 	cialo = &bohater;
 
 }
 
+PacMan::PacMan(float predkosc, Wektor miejsceStartuPacmana, bool port, bool u_usta, int ile, int kier) : Postac(predkosc, kier)
+{
+	ile_zyc = ile;
+//	portal = port;
+
+	x = miejsceStartuPacmana.x;
+	y = miejsceStartuPacmana.y;
+
+	ustaZamkniete = u_usta;
+	kierunek_ust = kierunek;
+
+	bohater.setRadius(15);
+	bohater.setFillColor(Color::Yellow);
+
+	if (!tekstura.loadFromFile("cialo_tekstL.png"))
+		std::cout << "nie mozna zaladowac rekstury pac-mana" << std::endl;
+
+	bohater.setTexture(&tekstura);
+	bohater.setPosition(x, y);
+	cialo = &bohater;
+}
+
 
 PacMan::~PacMan()
 {
-	//ile_istnieje--;
 }
 
 

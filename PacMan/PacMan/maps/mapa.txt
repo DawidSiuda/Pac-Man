@@ -1,8 +1,8 @@
 mapa.jpg
 550
 605
-110 start X
-110 start Y
+300 start X
+501 start Y
 
 //0
 0

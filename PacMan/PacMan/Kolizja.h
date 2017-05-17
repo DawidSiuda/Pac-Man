@@ -7,7 +7,6 @@
 #include <iostream>
 
 extern class PacMan;
-//extern class Mapa;
 
 using namespace sf;
 
@@ -21,8 +20,6 @@ public:
 	~Kolizja();
 
 	friend void obsluz_kolizje_mapy(Kolizja *, int, Wektor, int, int, PacMan*);
-	friend void stworz_kolizje_dla_mapy(int, Kolizja *);
-	friend void rysuj_kolizje(int, Kolizja *, RenderWindow *);
 	friend class Mapa;
 
 

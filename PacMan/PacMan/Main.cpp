@@ -13,11 +13,11 @@ int main()
 {
 	////////////////////////////////////////////////////////////
 	//tworzenie podstawowych obiektow
+
 	Event event; // obiekt przechowuj¹cy wszystkie zdarzenia (naciœniêcia klawiszy itp.)
 	Clock clock; // zerar pilnuj¹cy rysowania sceny wzgledem up³ynêtego czasu
 	Clock zegar; // zegar pilnuj¹cy zamykania ust pacmana
 	RenderWindow okno(VideoMode(SZEROKOSC_OKNA, WYSOKOSC_OKNA), "Pac-Man");// tworzy okno
-
 	Mapa mapa(50, 60); //tworzy mape
 	if (mapa.WczytanoMape() == false)
 	{
@@ -27,32 +27,16 @@ int main()
 		exit(0);
 	}
 
-	PacMan Pac_Man(3, 100, LEWO, mapa.pozycja_x, mapa.pozycja_y, false);// tworzy pacmana
+	PacMan Pac_Man(100, mapa.dajStartPacMan());// tworzy pacmana
 
 	bool pauza = false; // zmienna informuje czy rozgrywaka nie jest zatrzymana
 
 	////////////////////////////////////////////////////////////
 	//przygotowanie okna aplikacji
+
 	okno.setFramerateLimit(60); // limit FPS 60
 	okno.setVerticalSyncEnabled(true);// czekaj na synchronizacje pionow¹
 
-
-
-	 ////////////////////////////////////////////////////////////
-	 //USUN¥C
-		#ifdef TEST
-
-			Font font;
-			if (!font.loadFromFile("arial.ttf"))
-			{
-				std::cout << "blad wczytania font-u" << std::endl;
-			}
-			Text napis;
-			napis.setFont(font);
-			napis.setPosition(Vector2f(200, 700));
-			napis.setCharacterSize(24);
-		#endif // TEST
-	//USUN¥C
 	//////////////////////////////////////////////////////////
 
 	while (okno.isOpen()) //g³ówna pêtla gry
@@ -76,22 +60,22 @@ int main()
 					{
 					case(Keyboard::Left):
 					{
-						Pac_Man.zmiana_kierunku(LEWO);
+						Pac_Man.zmianaBuforowanegoKierunku(LEWO);
 						break;
 					}
 					case(Keyboard::Right):
 					{
-						Pac_Man.zmiana_kierunku(PRAWO);
+						Pac_Man.zmianaBuforowanegoKierunku(PRAWO);
 						break;
 					}
 					case(Keyboard::Up):
 					{
-						Pac_Man.zmiana_kierunku(GORA);
+						Pac_Man.zmianaBuforowanegoKierunku(GORA);
 						break;
 					}
 					case(Keyboard::Down):
 					{
-						Pac_Man.zmiana_kierunku(DOL);
+						Pac_Man.zmianaBuforowanegoKierunku(DOL);
 						break;
 					}
 					case(Keyboard::Escape):
@@ -128,24 +112,15 @@ int main()
 
 
 		if (pauza == false)
-		{
-			//////////////////////////////////////////////////////////////////////
+		{ 
 			//liczenie nowej pozycji pacman
-			//bior¹c pod uwage czasu który up³yn¹³ od oststniej klatki
-
-			//	float przemieszczenie_pacmana = pac_man.dajPredkosc() * czas_od_oststniej_klatki;
-
-			Pac_Man.zmiana_pozycji(clock.getElapsedTime().asSeconds());
-
-			//std::cout << Clock.getElapsedTime().asSeconds() << std::endl; // czas od ostatniej klatki
+			float przesuniecie = Pac_Man.dajPredkosc() * clock.getElapsedTime().asSeconds();
+			Pac_Man.zmiana_pozycji(przesuniecie,Pac_Man.daj_kierunek());
 			clock.restart();// czas mierzony od pocz¹tku
 
-							//liczenie nowej pozycji pacman 
-							//bior¹c pod uwage czasu który up³yn¹³ od oststniej klatki
-							//////////////////////////////////////////////////////////////////////
 
-							//////////////////////////////////////////////////////////////////////
-							//sprawdzanie kolizji pacmana z mapa
+			//////////////////////////////////////////////////////////////////////
+			//sprawdzanie kolizji pacmana z mapa
 			obsluz_kolizje_mapy(mapa.dajMapeKolizji(),
 				ILE_KOLIZJI,
 				Pac_Man.daj_xy(),
@@ -176,18 +151,28 @@ int main()
 
 			//mapa.rysuj_kolizje(&okno); // rysuj obszary kolizyjne
 
-									  ////////////////////////////////////////////////////////////
-									  //USUN¥C
-#ifdef TEST
-			okno.draw(napis);
-			switch (Pac_Man.daj_kier_w_bufor())
-			{
-			case 1: napis.setString("GÓRA"); break;
-			case 2: napis.setString("PRAWO"); break;
-			case 3: napis.setString("DÓL"); break;
-			case 4: napis.setString("LEWO"); break;
-			}
-#endif // TEST
+			////////////////////////////////////////////////////////////
+			//USUN¥C
+			#ifdef TEST
+
+				Font font;
+				if (!font.loadFromFile("arial.ttf"))
+				{
+					std::cout << "blad wczytania font-u" << std::endl;
+				}
+				Text napis;
+				napis.setFont(font);
+				napis.setPosition(Vector2f(200, 700));
+				napis.setCharacterSize(24);
+				okno.draw(napis);
+				switch (Pac_Man.daj_kier_w_bufor())
+				{
+				case 1: napis.setString("GÓRA"); break;
+				case 2: napis.setString("PRAWO"); break;
+				case 3: napis.setString("DÓL"); break;
+				case 4: napis.setString("LEWO"); break;
+				}
+			#endif // TEST
 			//USUN¥C
 			////////////////////////////////////////////////////////////
 
@@ -209,14 +194,23 @@ int main()
 
 			////////////////////////////////////////////////////////////
 			//USUN¥C
-#ifdef TEST
-			switch (pauza)
-			{
-			case true: napis.setString("PAUZA"); break;
+			#ifdef TEST
+				Font font;
+				if (!font.loadFromFile("arial.ttf"))
+				{
+					std::cout << "blad wczytania font-u" << std::endl;
+				}
+				Text napis;
+				napis.setFont(font);
+				napis.setPosition(Vector2f(200, 700));
+				napis.setCharacterSize(24);
+				switch (pauza)
+				{
+				case true: napis.setString("PAUZA"); break;
 
-			}
-			okno.draw(napis);
-#endif // TEST
+				}
+				okno.draw(napis);
+			#endif // TEST
 			//USUN¥C
 			////////////////////////////////////////////////////////////
 

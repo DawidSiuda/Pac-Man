@@ -26,10 +26,9 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 	scieszka += nazwaPliku;
 	int licznik = 0;
 	int licznikDodatkowy = 0;
+	string linia;
 
 	plik.open(scieszka, ios::in);
-
-	string linia;
 
 	if (plik.good())
 	{
@@ -123,31 +122,11 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 								getline(plik, linia);
 								if (!sprawdzCzyliczba(linia))
 								{
-									string wyjatek = "-->1 Blad wczytywania z pliku ";
+									string wyjatek = "-->1 Blad wczytywania z pliku kod:1";
 									throw wyjatek;
 									return 0;
 								}
-								/*
-								for(int i = 0 ; i< linia.length(); i++)//sprawdzanie poprawnosci zapisu danych w pliku txt
-									if (linia.at(i) == '0' ||
-										linia.at(i) == '1' ||
-										linia.at(i) == '2' ||
-										linia.at(i) == '3' ||
-										linia.at(i) == '4' ||
-										linia.at(i) == '5' ||
-										linia.at(i) == '6' ||
-										linia.at(i) == '7' ||
-										linia.at(i) == '8' ||
-										linia.at(i) == '9' ||
-										linia.at(i) == ' ')
-									{
-
-									}else
-									{
-										string wyjatek = "-->1 Blad wczytywania z pliku ";
-										throw wyjatek;
-									}
-										*/
+								
 								std::string::size_type sz;
 								int pomoc = std::stoi(linia, &sz);
 								if (pomoc >= 0 && pomoc <= 10)
@@ -162,85 +141,38 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 								getline(plik, linia);
 								if (!sprawdzCzyliczba(linia.substr(0, 3)))
 								{
-									string wyjatek = "-->2 Blad wczytywania z pliku ";
+									string wyjatek = "-->2 Blad wczytywania z pliku kod:2";
 									throw wyjatek;
 									return 0;
 								}
-								/*
-								for (int i = 0; i< linia.substr(0, 3).length(); i++)//sprawdzanie poprawnosci zapisu danych w pliku txt
-									if (linia.at(i) == '0' ||
-										linia.at(i) == '1' ||
-										linia.at(i) == '2' ||
-										linia.at(i) == '3' ||
-										linia.at(i) == '4' ||
-										linia.at(i) == '5' ||
-										linia.at(i) == '6' ||
-										linia.at(i) == '7' ||
-										linia.at(i) == '8' ||
-										linia.at(i) == '9' ||
-										linia.at(i) == ' '
-										)
-									{
-
-									}
-									else
-									{
-										string wyjatek = "-->2 Blad wczytywania z pliku linia: " + linia ;
-										throw wyjatek;
-									}*/
+								
 								if (!sprawdzCzyliczba(linia.substr(4, 4)))
 								{
-									string wyjatek = "-->3 Blad wczytywania z pliku ";
+									string wyjatek = "-->3 Blad wczytywania z pliku kod:3";
 									throw wyjatek;
 									return 0;
 								}
-								/*
-								for (int i = 0; i< linia.substr(4, 4).substr(0, 3).length(); i++)//sprawdzanie poprawnosci zapisu danych w pliku txt
-									if (linia.at(i) == '0' ||
-										linia.at(i) == '1' ||
-										linia.at(i) == '2' ||
-										linia.at(i) == '3' ||
-										linia.at(i) == '4' ||
-										linia.at(i) == '5' ||
-										linia.at(i) == '6' ||
-										linia.at(i) == '7' ||
-										linia.at(i) == '8' ||
-										linia.at(i) == '9' ||
-										linia.at(i) == ' '
-										)
-									{
-
-									}
-									else
-									{
-										string wyjatek = "-->2 Blad wczytywania z pliku linia: " + linia;
-										throw wyjatek;
-									}
-									*/
 
 								std::string::size_type sz;
 								int pomocI = std::stoi(linia.substr(0, 3), &sz);
 								int pomocII = std::stoi(linia.substr(4, 4), &sz);
 
-								//cout << i << " " <<pomocI << " "<< pomocII << endl;
 								mapaKolizjiZPliku[i].daj_wsp(pomocI, pomocII);
 								mapaKolizjiZPliku[i].stworz(); // aktualizacja wspó³¿êdnych kolizji, ustalanie wielkoœci i koloru
 
 							}
 							i++;
 						}
-						
 					}
 					break;
 				}
-				//break;
 				licznikDodatkowy++;
 			}
 		}
 		catch (std::string blad)
 		{
 			cout << blad << endl;
-			bool zamknij = 1;
+		//	bool zamknij = 1;
 			return 1;
 		}
 		plik.close();
