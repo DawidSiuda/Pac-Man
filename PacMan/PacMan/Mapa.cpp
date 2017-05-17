@@ -88,6 +88,28 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 					#endif TEST
 				}
 				else
+				if (licznikDodatkowy == 3)
+				{
+					getline(plik, linia);
+					std::string::size_type sz;
+					string pomoc = linia.substr(0, 3);
+					StartBohateraX = std::stoi(pomoc, &sz);
+					#ifdef TEST
+					cout << "--> start x: " << pomoc << endl;
+					#endif TEST
+				}
+				else
+				if (licznikDodatkowy == 4)
+				{
+					getline(plik, linia);
+					std::string::size_type sz;
+					string pomoc = linia.substr(0, 3);
+					StartBohateraY = std::stoi(pomoc, &sz);
+					#ifdef TEST
+					cout << "--> start y: " << pomoc << endl;
+					#endif TEST
+				}
+				else
 				{
 					int i = 0;// licznik kolizji
 					while(!plik.eof())
@@ -99,7 +121,13 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 							if (!plik.eof()) //rodzaj kolizji 
 							{
 								getline(plik, linia);
-
+								if (!sprawdzCzyliczba(linia))
+								{
+									string wyjatek = "-->1 Blad wczytywania z pliku ";
+									throw wyjatek;
+									return 0;
+								}
+								/*
 								for(int i = 0 ; i< linia.length(); i++)//sprawdzanie poprawnosci zapisu danych w pliku txt
 									if (linia.at(i) == '0' ||
 										linia.at(i) == '1' ||
@@ -119,7 +147,7 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 										string wyjatek = "-->1 Blad wczytywania z pliku ";
 										throw wyjatek;
 									}
-										
+										*/
 								std::string::size_type sz;
 								int pomoc = std::stoi(linia, &sz);
 								if (pomoc >= 0 && pomoc <= 10)
@@ -132,6 +160,13 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 							if (!plik.eof()) // wsp. kolizji
 							{
 								getline(plik, linia);
+								if (!sprawdzCzyliczba(linia.substr(0, 3)))
+								{
+									string wyjatek = "-->2 Blad wczytywania z pliku ";
+									throw wyjatek;
+									return 0;
+								}
+								/*
 								for (int i = 0; i< linia.substr(0, 3).length(); i++)//sprawdzanie poprawnosci zapisu danych w pliku txt
 									if (linia.at(i) == '0' ||
 										linia.at(i) == '1' ||
@@ -152,7 +187,14 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 									{
 										string wyjatek = "-->2 Blad wczytywania z pliku linia: " + linia ;
 										throw wyjatek;
-									}
+									}*/
+								if (!sprawdzCzyliczba(linia.substr(4, 4)))
+								{
+									string wyjatek = "-->3 Blad wczytywania z pliku ";
+									throw wyjatek;
+									return 0;
+								}
+								/*
 								for (int i = 0; i< linia.substr(4, 4).substr(0, 3).length(); i++)//sprawdzanie poprawnosci zapisu danych w pliku txt
 									if (linia.at(i) == '0' ||
 										linia.at(i) == '1' ||
@@ -174,15 +216,15 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 										string wyjatek = "-->2 Blad wczytywania z pliku linia: " + linia;
 										throw wyjatek;
 									}
+									*/
 
 								std::string::size_type sz;
 								int pomocI = std::stoi(linia.substr(0, 3), &sz);
 								int pomocII = std::stoi(linia.substr(4, 4), &sz);
 
-								cout << i << " " <<pomocI << " "<< pomocII << endl;
+								//cout << i << " " <<pomocI << " "<< pomocII << endl;
 								mapaKolizjiZPliku[i].daj_wsp(pomocI, pomocII);
 								mapaKolizjiZPliku[i].stworz(); // aktualizacja wspó³¿êdnych kolizji, ustalanie wielkoœci i koloru
-												 //std::cout << kolizja[0].x << " "<< kolizja[0].y << std::endl; // wypisanie srodka kolizji
 
 							}
 							i++;
@@ -199,7 +241,7 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 		{
 			cout << blad << endl;
 			bool zamknij = 1;
-			throw zamknij;
+			return 1;
 		}
 		plik.close();
 	}
@@ -208,13 +250,18 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 	return 0;
 }
 
-void Mapa::rysuj_kolizje(int ile, Kolizja * kolizja, RenderWindow * okno)
+void Mapa::rysuj_kolizje(RenderWindow * okno)
 {
 	for (int i = 0; i < ileKolizji; i++)
 	{
 		okno->draw(mapaKolizjiZPliku[i].pole_kolizji);
-		cout << mapaKolizjiZPliku[i].pocz_x << " " << mapaKolizjiZPliku[i].pocz_y << endl;
+		//cout << mapaKolizjiZPliku[i].pocz_x << " " << mapaKolizjiZPliku[i].pocz_y << endl;
 	}
+}
+
+bool Mapa::WczytanoMape()
+{
+	return WczytywanieZakonczonePowodzeniem;
 }
  
 Kolizja * Mapa::dajMapeKolizji()
@@ -227,36 +274,58 @@ Sprite Mapa::rysuj()
 	return Obraz;
 }
 
-Wektor Mapa::dajMape()
+Wektor Mapa::dajStartPacMan()
 {
-	/// bedzie pobrane z pliku
 	Wektor moj_wektor;
-	moj_wektor.x = MapaPodstawowa.StartBohateraX;
-	moj_wektor.y = MapaPodstawowa.StartBohateraY;
+	moj_wektor.x = StartBohateraX;
+	moj_wektor.y = StartBohateraY;
 
 	return moj_wektor;
 }
 
-Mapa::Mapa(Wektor pobMapa, int pozycja_poczatkowa_x, int pozycja_poczatkowa_y, int przesuniecie_w_dol)
-	:pozycja_x(pozycja_poczatkowa_x),
-	pozycja_y(pozycja_poczatkowa_y),
-	StartBohateraX(pobMapa.x),
-	StartBohateraY(pobMapa.y)
+bool Mapa::sprawdzCzyliczba(string linia)
 {
-	mapaKolizjiZPliku = new Kolizja[1];// mapa z pusta kokizja
+	for (int i = 0; i < linia.length(); i++)//sprawdzanie poprawnosci zapisu danych w pliku txt
+	{
+		if (!(linia.at(i) == '0' ||
+			linia.at(i) == '1' ||
+			linia.at(i) == '2' ||
+			linia.at(i) == '3' ||
+			linia.at(i) == '4' ||
+			linia.at(i) == '5' ||
+			linia.at(i) == '6' ||
+			linia.at(i) == '7' ||
+			linia.at(i) == '8' ||
+			linia.at(i) == '9' ||
+			linia.at(i) == ' '))
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
-	wczytajMapeZPliku();
+Mapa::Mapa(int pozycja_poczatkowa_x, int pozycja_poczatkowa_y)
+	:pozycja_x(pozycja_poczatkowa_x),
+	pozycja_y(pozycja_poczatkowa_y)
+{
+
+	mapaKolizjiZPliku = new Kolizja[1];// mapa z pusta kokizja
+	WczytywanieZakonczonePowodzeniem = true;
+
+	if (wczytajMapeZPliku())
+	{
+		WczytywanieZakonczonePowodzeniem = false;
+	}
+
 	tekstura.loadFromFile(nazwaMapy);
 	Obraz.setTexture(tekstura);
 	Obraz.setPosition(Vector2f(pozycja_poczatkowa_x, pozycja_poczatkowa_y));
-
-	//stworz_kolizje_dla_mapy(65, mapa_kolizji);
-
-	
-	//Obraz.setPosition(Vector2f(pozycja_poczatkowa_x, pozycja_poczatkowa_y));
 }
 
 Mapa::~Mapa()
 {
 	delete[] mapaKolizjiZPliku;
 }
+
+

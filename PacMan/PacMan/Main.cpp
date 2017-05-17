@@ -2,13 +2,10 @@
 #include "Duch.h"
 #include "PacMan.h"
 #include "Lista_zmiennych_stalych.cpp"
-
-
-//#include "stworz_kolizje_dla_mapy.cpp"
+#include "NoweOknoKomunikatu.h"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-//#include <Windows.h>
 
 using namespace sf;
 
@@ -21,31 +18,40 @@ int main()
 	Clock zegar; // zegar pilnuj¹cy zamykania ust pacmana
 	RenderWindow okno(VideoMode(SZEROKOSC_OKNA, WYSOKOSC_OKNA), "Pac-Man");// tworzy okno
 
-	Mapa mapa(Mapa::dajMape(), 50, 60); //tworzy mape
+	Mapa mapa(50, 60); //tworzy mape
+	if (mapa.WczytanoMape() == false)
+	{
+		std::cout << "BLAD WCZYTANIA MAPY" << endl;
+		NoweOknoKomunikatu blad("BLAD WCZYTANIA MAPY \n      Press Esc to Exit");
+		blad.wyswietl();
+		exit(0);
+	}
+
 	PacMan Pac_Man(3, 100, LEWO, mapa.pozycja_x, mapa.pozycja_y, false);// tworzy pacmana
+
 	bool pauza = false; // zmienna informuje czy rozgrywaka nie jest zatrzymana
 
-						////////////////////////////////////////////////////////////
-						//przygotowanie okna aplikacji
+	////////////////////////////////////////////////////////////
+	//przygotowanie okna aplikacji
 	okno.setFramerateLimit(60); // limit FPS 60
 	okno.setVerticalSyncEnabled(true);// czekaj na synchronizacje pionow¹
 
 
 
-									  ////////////////////////////////////////////////////////////
-									  //USUN¥C
-#ifdef TEST
+	 ////////////////////////////////////////////////////////////
+	 //USUN¥C
+		#ifdef TEST
 
-	Font font;
-	if (!font.loadFromFile("arial.ttf"))
-	{
-		std::cout << "blad wczytania font-u" << std::endl;
-	}
-	Text napis;
-	napis.setFont(font);
-	napis.setPosition(Vector2f(200, 700));
-	napis.setCharacterSize(24);
-#endif // TEST
+			Font font;
+			if (!font.loadFromFile("arial.ttf"))
+			{
+				std::cout << "blad wczytania font-u" << std::endl;
+			}
+			Text napis;
+			napis.setFont(font);
+			napis.setPosition(Vector2f(200, 700));
+			napis.setCharacterSize(24);
+		#endif // TEST
 	//USUN¥C
 	//////////////////////////////////////////////////////////
 
@@ -168,7 +174,7 @@ int main()
 
 			okno.draw(*Pac_Man.cialo);// rysuj pacmana
 
-			mapa.rysuj_kolizje(ILE_KOLIZJI, mapa.dajMapeKolizji(), &okno); // rysuj obszary kolizyjne
+			//mapa.rysuj_kolizje(&okno); // rysuj obszary kolizyjne
 
 									  ////////////////////////////////////////////////////////////
 									  //USUN¥C
@@ -199,7 +205,7 @@ int main()
 			okno.draw(mapa.rysuj());
 			okno.draw(*Pac_Man.cialo);
 
-			mapa.rysuj_kolizje(ILE_KOLIZJI, mapa.dajMapeKolizji(), &okno);
+			//mapa.rysuj_kolizje(&okno);
 
 			////////////////////////////////////////////////////////////
 			//USUN¥C

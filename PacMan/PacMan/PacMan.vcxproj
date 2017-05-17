@@ -120,10 +120,10 @@
   <ItemGroup>
     <ClCompile Include="Duch.cpp" />
     <ClCompile Include="Kolizja.cpp" />
-    <ClCompile Include="KreatorKolizji.cpp" />
     <ClCompile Include="Lista_zmiennych_stalych.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mapa.cpp" />
+    <ClCompile Include="NoweOknoKomunikatu.cpp" />
     <ClCompile Include="ObsluzKolizje.cpp" />
     <ClCompile Include="PacMan.cpp" />
     <ClCompile Include="Postac.cpp" />
@@ -133,6 +133,7 @@
     <ClInclude Include="Duch.h" />
     <ClInclude Include="Kolizja.h" />
     <ClInclude Include="Mapa.h" />
+    <ClInclude Include="NoweOknoKomunikatu.h" />
     <ClInclude Include="PacMan.h" />
     <ClInclude Include="Postac.h" />
     <ClInclude Include="resource.h" />
