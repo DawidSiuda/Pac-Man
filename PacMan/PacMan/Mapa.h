@@ -33,7 +33,6 @@ public:
 	~Mapa();
 
 	friend class Kolizja;
-	friend void obsluz_kolizje_mapy(Kolizja*, int, Wektor, int, int, PacMan*);
 	
 
 private:

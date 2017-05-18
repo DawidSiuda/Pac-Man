@@ -3,6 +3,7 @@
 #include "PacMan.h"
 #include "Lista_zmiennych_stalych.cpp"
 #include "NoweOknoKomunikatu.h"
+#include "Napis.h"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -24,12 +25,15 @@ int main()
 	if (mapa.WczytanoMape() == false)
 	{
 		std::cout << "BLAD WCZYTANIA MAPY" << endl;
-		NoweOknoKomunikatu blad("BLAD WCZYTANIA MAPY \n      Press Esc to Exit");
+		NoweOknoKomunikatu blad("BLAD WCZYTANIA MAPY \n       Nacisnij Esc aby\n    zakonczyc program");
 		blad.wyswietl();
 		exit(0);
 	}
 
 	PacMan Pac_Man(100, mapa.dajStartPacMan());// tworzy pacmana
+	NoweOknoKomunikatu komunikatPauza("PAUSE", 260, 320, 40, "Press Esc to Continue", 130, 380, 30);// tworzy komunikat dla pauzy
+	Napis kierunek(30,680, 20, Color(255, 255, 255)); // tworzy napis przeznaczony do wyswietlania loga pac-mana
+	Napis logo(230, 10, 35, Color(255, 255, 255), "PAC-FONT.TTF");// tworzy napis przeznaczony do wyswietlania kierunku u do³u ekranu gry
 
 	bool pauza = false; // zmienna informuje czy rozgrywaka nie jest zatrzymana
 
@@ -138,38 +142,21 @@ int main()
 			
 				okno.clear(); // czyszczenie ekranu
 
+				logo.wyswietl(&okno, "PAC-MAN"); // rysuje logo
+
 				okno.draw(mapa.rysuj()); // rysuj mape
 
 				okno.draw(*Pac_Man.cialo);// rysuj pacmana
 
 				//mapa.rysuj_kolizje(&okno); // rysuj obszary kolizyjne
 
-				
-#ifdef TEST
-				////////////////////////////////////////////////////////////
-				//USUN¥C
-				Font font;
-				if (!font.loadFromFile("arial.ttf"))
-				{
-					std::cout << "blad wczytania font-u" << std::endl;
-				}
-				Text napis;
-				napis.setFont(font);
-				napis.setPosition(Vector2f(200, 700));
-				napis.setCharacterSize(24);
-				okno.draw(napis);
 				switch (Pac_Man.daj_kier_w_bufor())
 				{
-				case 1: napis.setString("GÓRA"); break;
-				case 2: napis.setString("PRAWO"); break;
-				case 3: napis.setString("DÓL"); break;
-				case 4: napis.setString("LEWO"); break;
-
+				case 1: kierunek.wyswietl(&okno, "kolejny kierunek: GÓRA"); break;
+				case 2: kierunek.wyswietl(&okno, "kolejny kierunek: PRAWO"); break;
+				case 3: kierunek.wyswietl(&okno, "kolejny kierunek: DÓL"); break;
+				case 4: kierunek.wyswietl(&okno, "kolejny kierunek: LEWO"); break;
 				}
-				okno.draw(napis);
-				//USUN¥C
-				////////////////////////////////////////////////////////////
-#endif // TEST
 
 				okno.display();// wyswietl wyrysowane okno
 
@@ -179,48 +166,15 @@ int main()
 		}
 		else if (pauza == true)
 		{
-			//////////////////////////////////////////////////////////////////////
-			//rysowanie sceny
+			okno.clear(); // czyszczenie ekranu
 
-			okno.clear();
-
-			okno.draw(mapa.rysuj());
-			okno.draw(*Pac_Man.cialo);
+			logo.wyswietl(&okno, "PAC-MAN"); // rysuje logo
+			okno.draw(mapa.rysuj()); // rysuj mape
+			okno.draw(*Pac_Man.cialo); // rysuj pacmana
 			//mapa.rysuj_kolizje(&okno);
+			komunikatPauza.wyswietl(&okno);
 
-#ifdef TEST
-			////////////////////////////////////////////////////////////
-			//USUN¥C
-
-				Font font;
-				if (!font.loadFromFile("arial.ttf"))
-				{
-					std::cout << "blad wczytania font-u" << std::endl;
-				}
-				Text napis;
-				napis.setFont(font);
-				napis.setPosition(Vector2f(200, 700));
-				napis.setCharacterSize(24);
-				switch (pauza)
-				{
-				case true: napis.setString("PAUZA"); break;
-
-				}
-				okno.draw(napis);
-		
-			//USUN¥C
-			////////////////////////////////////////////////////////////
-#endif // TEST
-
-			//zrobic okno pauzy
-			{
-					NoweOknoKomunikatu komunikatPauza("Pauza \n      Press Esc to Continue",&okno);
-					komunikatPauza.wyswietl();
-			}
-			okno.display();
-
-			//rysowanie sceny
-			//////////////////////////////////////////////////////////////////////
+			okno.display(); // wyswietl wyrysowane okno
 		}
 	}
 	return 0;
