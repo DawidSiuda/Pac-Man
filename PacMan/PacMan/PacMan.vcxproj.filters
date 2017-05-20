@@ -48,6 +48,12 @@
     <ClCompile Include="Napis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BialyPunkt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapaPunktow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mapa.h">
@@ -72,6 +78,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Napis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BialyPunkt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapaPunktow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,6 +14,8 @@ class Kolizja
 {
 public:
 
+	Wektor dajXY();
+
 	Kolizja& operator = (const Kolizja &);
 
 	Kolizja(bool = 0, bool = 0, bool = 0, bool = 0, float x = 0, float y = 0, float wielkosc = 20);

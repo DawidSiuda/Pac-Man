@@ -3,6 +3,7 @@
 #include "Kolizja.h"
 #include "PacMan.h"
 #include "Struktury.cpp"
+#include "Napis.h"
 
 #include <SFML/Graphics.hpp>
 #include <string>

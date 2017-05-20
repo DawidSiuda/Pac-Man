@@ -53,6 +53,27 @@ int Mapa::wczytajMapeZPliku(std::string nazwaPliku)
 			delete[] mapaKolizjiZPliku;
 			mapaKolizjiZPliku = new Kolizja[licznik];
 
+			/*
+			////////////////////////////////////////////////////////////////
+			// zliczanie punktow 
+			plik.clear();
+			plik.seekg(0, ios::beg);
+			licznik = 0;
+
+			while (!plik.eof())
+			{
+				getline(plik, linia);
+
+				if (linia.substr(0, 1) == "#")
+					licznik++;
+			}
+
+			#ifdef TEST
+			cout << "--> W pliku wykryto " << licznik << " prostych punktowych" << endl;
+			#endif // TEST
+			///////////////////////////////////////////////////////////////////
+			*/
+
 			//ustawianie wskaznika w pliku na pocz¹tek
 			plik.clear();
 			plik.seekg(0, ios::beg);
@@ -192,6 +213,8 @@ void Mapa::rysuj_kolizje(RenderWindow * okno)
 	for (int i = 0; i < ileKolizji; i++)
 	{
 		okno->draw(mapaKolizjiZPliku[i].pole_kolizji);
+		//Napis napis((int)mapaKolizjiZPliku[i].pocz_x, (int)mapaKolizjiZPliku[i].pocz_y, 30);
+		//napis.wyswietl(okno, i);
 		//cout << mapaKolizjiZPliku[i].pocz_x << " " << mapaKolizjiZPliku[i].pocz_y << endl;
 	}
 }
@@ -248,6 +271,7 @@ Mapa::Mapa(int pozycja_poczatkowa_x, int pozycja_poczatkowa_y)
 {
 
 	mapaKolizjiZPliku = new Kolizja[1];// mapa z pusta kokizja
+
 	WczytywanieZakonczonePowodzeniem = true;
 
 	if (wczytajMapeZPliku())

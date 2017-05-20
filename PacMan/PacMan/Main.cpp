@@ -4,6 +4,7 @@
 #include "Lista_zmiennych_stalych.cpp"
 #include "NoweOknoKomunikatu.h"
 #include "Napis.h"
+#include "MapaPunktow.h"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -29,6 +30,9 @@ int main()
 		blad.wyswietl();
 		exit(0);
 	}
+
+	MapaPunktow mapaPunktow;
+	mapaPunktow.tworzMapePunktow(mapa.dajMapeKolizji(), mapa.iloscKolizji());
 
 	PacMan Pac_Man(100, mapa.dajStartPacMan());// tworzy pacmana
 	NoweOknoKomunikatu komunikatPauza("PAUSE", 260, 320, 40, "Press Esc to Continue", 130, 380, 30);// tworzy komunikat dla pauzy
@@ -146,6 +150,8 @@ int main()
 
 				okno.draw(mapa.rysuj()); // rysuj mape
 
+				mapaPunktow.rysuj(&okno); // rysuje bia³ê punkty
+
 				okno.draw(*Pac_Man.cialo);// rysuj pacmana
 
 				//mapa.rysuj_kolizje(&okno); // rysuj obszary kolizyjne
@@ -170,7 +176,9 @@ int main()
 
 			logo.wyswietl(&okno, "PAC-MAN"); // rysuje logo
 			okno.draw(mapa.rysuj()); // rysuj mape
+			mapaPunktow.rysuj(&okno); // rysuje bia³ê punkty
 			okno.draw(*Pac_Man.cialo); // rysuj pacmana
+			
 			//mapa.rysuj_kolizje(&okno);
 			komunikatPauza.wyswietl(&okno);
 

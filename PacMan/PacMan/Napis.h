@@ -11,6 +11,7 @@ class Napis
 {
 public:
 	void wyswietl(RenderWindow *, string tre);
+	void wyswietl(RenderWindow *, int tre);
 
 	Napis(int, int, int, Color color = Color(255, 255, 255), string czciaka = "smash.ttf");
 	~Napis();

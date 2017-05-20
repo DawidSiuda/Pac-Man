@@ -6,6 +6,13 @@ void Napis::wyswietl(RenderWindow * okno ,string tre)
 	okno->draw(tresc);
 }
 
+void Napis::wyswietl(RenderWindow * okno, int tre)
+{
+	string wynik = to_string(tre);
+	tresc.setString(wynik);
+	okno->draw(tresc);
+}
+
 Napis::Napis(int pozX, int pozY , int roz, Color color ,string czciaka)
 {
 

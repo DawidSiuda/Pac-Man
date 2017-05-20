@@ -1,5 +1,13 @@
 #include "Kolizja.h"
 
+Wektor Kolizja::dajXY()
+{
+	Wektor wynik;
+	wynik.x = x;
+	wynik.y = y;
+	return wynik;
+}
+
 Kolizja & Kolizja::operator=(const Kolizja &kolizja)
 {
 
