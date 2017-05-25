@@ -14,7 +14,9 @@ class Kolizja
 {
 public:
 
+	DostepnyKierunek dajKierunki();
 	Wektor dajXY();
+	void usunKierunek(int);
 
 	Kolizja& operator = (const Kolizja &);
 

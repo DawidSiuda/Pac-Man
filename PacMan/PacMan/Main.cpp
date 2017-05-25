@@ -11,6 +11,7 @@
 
 extern void obsluzBuforRuchu(Postac *);
 extern void obsluzKolizjeMapy(Postac *, int, Kolizja *);
+extern void obsluzKolizjeKropek(PacMan  *, BialyPunkt *, int );
 using namespace sf;
 
 int main()
@@ -23,6 +24,15 @@ int main()
 	Clock zegar; // zegar pilnuj¹cy zamykania ust pacmana
 	RenderWindow okno(VideoMode(SZEROKOSC_OKNA, WYSOKOSC_OKNA), "Pac-Man");// tworzy okno
 	Mapa mapa(50, 60); //tworzy mape
+
+	//ekran wczytywania
+	{
+		okno.clear(); // czyszczenie ekranu
+		NoweOknoKomunikatu komunikatLaduj("LOADING...", 220, 320, 40);// tworzy komunikat dla loading
+		komunikatLaduj.wyswietl(&okno);
+		okno.display(); // wyswietl wyrysowane okno
+	} 
+
 	if (mapa.WczytanoMape() == false)
 	{
 		std::cout << "BLAD WCZYTANIA MAPY" << endl;
@@ -36,10 +46,11 @@ int main()
 
 	PacMan Pac_Man(100, mapa.dajStartPacMan());// tworzy pacmana
 	NoweOknoKomunikatu komunikatPauza("PAUSE", 260, 320, 40, "Press Esc to Continue", 130, 380, 30);// tworzy komunikat dla pauzy
+	NoweOknoKomunikatu komunikatStart("Are you ready?", 140, 270, 40, "Press Enter to Start", 190, 380, 20);// tworzy komunikat dla pauzy
 	Napis kierunek(30,680, 20, Color(255, 255, 255)); // tworzy napis przeznaczony do wyswietlania loga pac-mana
 	Napis logo(230, 10, 35, Color(255, 255, 255), "PAC-FONT.TTF");// tworzy napis przeznaczony do wyswietlania kierunku u do³u ekranu gry
 
-	bool pauza = false; // zmienna informuje czy rozgrywaka nie jest zatrzymana
+	short pauza = 2; // zmienna informuje czy rozgrywaka nie jest zatrzymana
 
 	////////////////////////////////////////////////////////////
 	//przygotowanie okna aplikacji
@@ -49,6 +60,7 @@ int main()
 
 	////////////////////////////////////////////////////////////
 	//g³ówna pêtla aplikacji
+	clock.restart();// czas mierzony od pocz¹tku
 
 	while (okno.isOpen()) 
 	{
@@ -66,7 +78,7 @@ int main()
 			case (Event::KeyPressed): // obs³uga klawiszy klawiatury
 			{
 				// obsluga klawiatury podczas gry, np.strza³ek
-				if (pauza == false)
+				if (pauza == 1)
 				{
 					switch (event.key.code)
 					{
@@ -92,20 +104,32 @@ int main()
 					}
 					case(Keyboard::Escape):
 					{
-						pauza = true;
+						pauza = 0;
 						break;
 					}
 					}
 				}
 
 				// obsluga klawiatury podczas pauzy, np.powrót do gry
-				else if (pauza == true)
+				else if (pauza == 0)
 				{
 					switch (event.key.code)
 					{
 					case(Keyboard::Escape):
 					{
-						pauza = false;
+						pauza = 1;
+						clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
+						break;
+					}
+					}
+				}
+				else if (pauza ==2)
+				{
+					switch (event.key.code)
+					{
+					case(Keyboard::Return):
+					{
+						pauza = 1;
 						clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
 						break;
 					}
@@ -123,7 +147,7 @@ int main()
 		} //while
 
 
-		if (pauza == false)
+		if (pauza == 1)
 		{ 
 			//liczenie nowej pozycji pacman
 			float przesuniecie = Pac_Man.dajPredkosc() * clock.getElapsedTime().asSeconds();
@@ -140,6 +164,7 @@ int main()
 			//sprawdzanie kolizji pac-mana z map¹
 			obsluzBuforRuchu(&Pac_Man);
 			obsluzKolizjeMapy(&Pac_Man, mapa.iloscKolizji(), mapa.dajMapeKolizji());
+			obsluzKolizjeKropek(&Pac_Man, mapaPunktow.dajMape(), mapaPunktow.ilePunktow());
 
 			//////////////////////////////////////////////////////////////////////
 			//rysowanie sceny
@@ -158,10 +183,10 @@ int main()
 
 				switch (Pac_Man.daj_kier_w_bufor())
 				{
-				case 1: kierunek.wyswietl(&okno, "kolejny kierunek: GÓRA"); break;
-				case 2: kierunek.wyswietl(&okno, "kolejny kierunek: PRAWO"); break;
-				case 3: kierunek.wyswietl(&okno, "kolejny kierunek: DÓL"); break;
-				case 4: kierunek.wyswietl(&okno, "kolejny kierunek: LEWO"); break;
+				case 1: kierunek.wyswietl(&okno, "Next direction: Up"); break;
+				case 2: kierunek.wyswietl(&okno, "Next direction: Right"); break;
+				case 3: kierunek.wyswietl(&okno, "Next direction: Down"); break;
+				case 4: kierunek.wyswietl(&okno, "Next direction: Left"); break;
 				}
 
 				okno.display();// wyswietl wyrysowane okno
@@ -170,7 +195,7 @@ int main()
 			//////////////////////////////////////////////////////////////////////
 
 		}
-		else if (pauza == true)
+		else if (pauza == 0)
 		{
 			okno.clear(); // czyszczenie ekranu
 
@@ -181,6 +206,20 @@ int main()
 			
 			//mapa.rysuj_kolizje(&okno);
 			komunikatPauza.wyswietl(&okno);
+
+			okno.display(); // wyswietl wyrysowane okno
+		}
+		else if (pauza == 2)
+		{
+			okno.clear(); // czyszczenie ekranu
+
+			logo.wyswietl(&okno, "PAC-MAN"); // rysuje logo
+			okno.draw(mapa.rysuj()); // rysuj mape
+			mapaPunktow.rysuj(&okno); // rysuje bia³ê punkty
+			okno.draw(*Pac_Man.cialo); // rysuj pacmana
+
+									   //mapa.rysuj_kolizje(&okno);
+			komunikatStart.wyswietl(&okno);
 
 			okno.display(); // wyswietl wyrysowane okno
 		}

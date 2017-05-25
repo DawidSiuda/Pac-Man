@@ -35,14 +35,14 @@ public:
 		bool port = false,
 		bool usta = true,
 		int ile_zyc = 3,
-		int kierunek = PRAWO );
+		int kierunek = LEWO);
 	PacMan(	
 		float predkosc,
 		Wektor miejsceStartuPacmana,
 		bool port = false,
 		bool usta = true,
 		int ile_zyc = 3,
-		int kierunek = PRAWO);
+		int kierunek = LEWO);
 	~PacMan();
 
 	friend class Kolizja;

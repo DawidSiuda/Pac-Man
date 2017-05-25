@@ -1,11 +1,31 @@
 #include "Kolizja.h"
 
+DostepnyKierunek Kolizja::dajKierunki()
+{ 
+	return DostKier;
+}
+
 Wektor Kolizja::dajXY()
 {
 	Wektor wynik;
 	wynik.x = x;
 	wynik.y = y;
 	return wynik;
+}
+
+void Kolizja::usunKierunek(int jaki)
+{
+	switch (jaki)
+	{
+	case GORA: DostKier.G = false;
+		break;
+	case PRAWO:DostKier.P = false;
+		break;
+	case DOL:DostKier.D = false;
+		break;
+	case LEWO:DostKier.L = false;
+		break;
+	}
 }
 
 Kolizja & Kolizja::operator=(const Kolizja &kolizja)
@@ -17,6 +37,12 @@ Kolizja & Kolizja::operator=(const Kolizja &kolizja)
 	DostKier.P = kolizja.DostKier.P;
 	DostKier.D = kolizja.DostKier.D;
 	DostKier.L = kolizja.DostKier.L;
+
+	pocz_x = kolizja.pocz_x;
+	pocz_y = kolizja.pocz_y;
+
+	x = kolizja.x;
+	y = kolizja.y;
 
 	wielkosc = kolizja.wielkosc;
 
