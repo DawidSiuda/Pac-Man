@@ -24,12 +24,12 @@ public:
 	void zmianaPozycji(float, int);
 	void zmianaPozycji(float, float);
 	int dajKierunek();
-	void AI(PacMan*);
-
+	void AI(PacMan*,float);
+	void zmiana_kier(int);
 	int ladowanie_na_mape();
 	virtual void zmienZwrotJesliMozliwe(); //zmienia kierunek ruchu postaci naprzeciwko jesli w buforze kierunku takie polecnie sie znajduje
 	virtual void obsluzKolizjeZMmapa(int, Kolizja *);
-	void zmiana_kier(int);
+
 
 	Duch(string, int, int, float, int = 100);
 	~Duch();
@@ -51,6 +51,7 @@ private:
 	int kierunek;
 	int predkosc;
 	const float odlegloscKolizjiOtoczenia;
+	bool obsluzWyjscie;
 
 };
 

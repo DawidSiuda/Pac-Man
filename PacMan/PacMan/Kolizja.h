@@ -26,6 +26,7 @@ public:
 	friend void obsluz_kolizje_mapy(Kolizja *, int, Wektor, int, int, PacMan*);
 	friend class Mapa;
 	friend class PacMan;
+	friend class Duch;
 
 
 protected:

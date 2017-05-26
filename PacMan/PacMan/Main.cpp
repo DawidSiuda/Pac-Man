@@ -47,10 +47,10 @@ int main()
 
 	PacMan Pac_Man(100, mapa.dajStartPacMan());// tworzy pacmana
 
-	Duch czerwony("czerwony.png", 275, 326, 50);// tworzy ducha
-	Duch rozowy("rozowy.png", 347, 326, 100);// tworzy ducha
-	Duch pomaranczowy("pomaranczowy.png", 300, 326, 100);// tworzy ducha
-	Duch niebieski("niebieski.png", 325, 326, 150);// tworzy ducha
+	Duch czerwony("czerwony.png", 275, 326, 1);// tworzy ducha
+	Duch rozowy("rozowy.png", 347, 326, 5);// tworzy ducha
+	Duch pomaranczowy("pomaranczowy.png", 300, 326, 10);// tworzy ducha
+	Duch niebieski("niebieski.png", 325, 326, 15);// tworzy ducha
 
 	NoweOknoKomunikatu komunikatPauza("PAUSE", 260, 320, 40, "Press Esc to Continue", 130, 380, 30);// tworzy komunikat dla pauzy
 	NoweOknoKomunikatu komunikatStart( "Press Enter to Start", 190, 380, 20);// tworzy komunikat dla Start
@@ -181,16 +181,6 @@ int main()
 			obsluzKolizjeMapy(&Pac_Man, mapa.iloscKolizji(), mapa.dajMapeKolizji());
 			obsluzKolizjeKropek(&Pac_Man, mapaPunktow.dajMape(), mapaPunktow.ilePunktow());
 
-			////////////////////////////////////////////////////////////////////////////////////////
-			//loczenie nowej pozycji duchow
-			float przemieszczenie = czerwony.dajPredkosc() * zegarDuchy.getElapsedTime().asSeconds();
-
-			czerwony.zmianaPozycji(przemieszczenie,czerwony.dajKierunek());
-			pomaranczowy.zmianaPozycji(przemieszczenie, pomaranczowy.dajKierunek());
-			rozowy.zmianaPozycji(przemieszczenie, rozowy.dajKierunek());
-			niebieski.zmianaPozycji(przemieszczenie, niebieski.dajKierunek());
-
-			zegarDuchy.restart();// czas mierzony od pocz¹tku
 
 			////////////////////////////////////////////////////////////////////////////////////////
 			//loczenie kolizji dochow z mapa
@@ -203,10 +193,21 @@ int main()
 			////////////////////////////////////////////////////////////////////////////////////////
 			//obsluga  AI duchow
 
-			czerwony.AI(&Pac_Man);
-			rozowy.AI(&Pac_Man);
-			pomaranczowy.AI(&Pac_Man);
-			niebieski.AI(&Pac_Man);
+			czerwony.AI(&Pac_Man, zegarDuchy.getElapsedTime().asSeconds());
+			rozowy.AI(&Pac_Man, zegarDuchy.getElapsedTime().asSeconds());
+			pomaranczowy.AI(&Pac_Man, zegarDuchy.getElapsedTime().asSeconds());
+			niebieski.AI(&Pac_Man, zegarDuchy.getElapsedTime().asSeconds());
+
+			////////////////////////////////////////////////////////////////////////////////////////
+			//loczenie nowej pozycji duchow
+			float przemieszczenie = czerwony.dajPredkosc() * zegarDuchy.getElapsedTime().asSeconds();
+
+			czerwony.zmianaPozycji(przemieszczenie, czerwony.dajKierunek());
+			pomaranczowy.zmianaPozycji(przemieszczenie, pomaranczowy.dajKierunek());
+			rozowy.zmianaPozycji(przemieszczenie, rozowy.dajKierunek());
+			niebieski.zmianaPozycji(przemieszczenie, niebieski.dajKierunek());
+
+			zegarDuchy.restart();// czas mierzony od pocz¹tku
 
 			//////////////////////////////////////////////////////////////////////
 			//rysowanie sceny
