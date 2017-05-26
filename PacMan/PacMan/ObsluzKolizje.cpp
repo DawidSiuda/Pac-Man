@@ -19,7 +19,7 @@ void obsluzKolizjeKropek(PacMan * pacman, BialyPunkt *mapaKropek, int ileKropek)
 {
 	int pacmanX = pacman->daj_xy().x;
 	int pacmanY = pacman->daj_xy().y;
-	std::cout << ileKropek << std::endl;
+	//std::cout << ileKropek << std::endl;
 	for (int i = 0; i < ileKropek; i++)
 	{
 		if (mapaKropek[i].dajXY().y < pacmanY + 5 && mapaKropek[i].dajXY().y > pacmanY - 5)

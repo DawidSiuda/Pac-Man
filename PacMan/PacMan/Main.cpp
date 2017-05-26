@@ -22,6 +22,7 @@ int main()
 	Event event; // obiekt przechowuj¹cy wszystkie zdarzenia (naciœniêcia klawiszy itp.)
 	Clock clock; // zerar pilnuj¹cy rysowania sceny wzgledem up³ynêtego czasu
 	Clock zegar; // zegar pilnuj¹cy zamykania ust pacmana
+	Clock zegarDuchy;// zegar pilnuj¹cy ruchu duchow
 	RenderWindow okno(VideoMode(SZEROKOSC_OKNA, WYSOKOSC_OKNA), "Pac-Man");// tworzy okno
 	Mapa mapa(50, 60); //tworzy mape
 
@@ -45,12 +46,19 @@ int main()
 	mapaPunktow.tworzMapePunktow(mapa.dajMapeKolizji(), mapa.iloscKolizji());
 
 	PacMan Pac_Man(100, mapa.dajStartPacMan());// tworzy pacmana
+
+	Duch czerwony("czerwony.png", 275, 326, 50);// tworzy ducha
+	Duch rozowy("rozowy.png", 347, 326, 100);// tworzy ducha
+	Duch pomaranczowy("pomaranczowy.png", 300, 326, 100);// tworzy ducha
+	Duch niebieski("niebieski.png", 325, 326, 150);// tworzy ducha
+
 	NoweOknoKomunikatu komunikatPauza("PAUSE", 260, 320, 40, "Press Esc to Continue", 130, 380, 30);// tworzy komunikat dla pauzy
-	NoweOknoKomunikatu komunikatStart("Are you ready?", 140, 270, 40, "Press Enter to Start", 190, 380, 20);// tworzy komunikat dla pauzy
+	NoweOknoKomunikatu komunikatStart( "Press Enter to Start", 190, 380, 20);// tworzy komunikat dla Start
 	Napis kierunek(30,680, 20, Color(255, 255, 255)); // tworzy napis przeznaczony do wyswietlania loga pac-mana
 	Napis logo(230, 10, 35, Color(255, 255, 255), "PAC-FONT.TTF");// tworzy napis przeznaczony do wyswietlania kierunku u do³u ekranu gry
+	Napis logoStartowe(70, 200, 90, Color(255, 255, 255), "PAC-FONT.TTF");// tworzy napis przeznaczony do wyswietlania napisu Pac-Man w menu startowym gry
 
-	short pauza = 2; // zmienna informuje czy rozgrywaka nie jest zatrzymana
+	short pauza = 2; // zmienna informuje czy rozgrywak, jest zatrzymana, trwa lub wyswietlany jest ekran startowy
 
 	////////////////////////////////////////////////////////////
 	//przygotowanie okna aplikacji
@@ -119,6 +127,12 @@ int main()
 					{
 						pauza = 1;
 						clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
+						zegarDuchy.restart();//zeruje czas który up³yn¹³ od ostatniej klatki
+						break;
+					}
+					case(Keyboard::Space):
+					{
+						okno.close();
 						break;
 					}
 					}
@@ -131,6 +145,7 @@ int main()
 					{
 						pauza = 1;
 						clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
+						zegarDuchy.restart();//zeruje czas który up³yn¹³ od ostatniej klatki
 						break;
 					}
 					}
@@ -166,6 +181,33 @@ int main()
 			obsluzKolizjeMapy(&Pac_Man, mapa.iloscKolizji(), mapa.dajMapeKolizji());
 			obsluzKolizjeKropek(&Pac_Man, mapaPunktow.dajMape(), mapaPunktow.ilePunktow());
 
+			////////////////////////////////////////////////////////////////////////////////////////
+			//loczenie nowej pozycji duchow
+			float przemieszczenie = czerwony.dajPredkosc() * zegarDuchy.getElapsedTime().asSeconds();
+
+			czerwony.zmianaPozycji(przemieszczenie,czerwony.dajKierunek());
+			pomaranczowy.zmianaPozycji(przemieszczenie, pomaranczowy.dajKierunek());
+			rozowy.zmianaPozycji(przemieszczenie, rozowy.dajKierunek());
+			niebieski.zmianaPozycji(przemieszczenie, niebieski.dajKierunek());
+
+			zegarDuchy.restart();// czas mierzony od pocz¹tku
+
+			////////////////////////////////////////////////////////////////////////////////////////
+			//loczenie kolizji dochow z mapa
+
+			obsluzKolizjeMapy(&czerwony, mapa.iloscKolizji(), mapa.dajMapeKolizji());
+			obsluzKolizjeMapy(&pomaranczowy, mapa.iloscKolizji(), mapa.dajMapeKolizji());
+			obsluzKolizjeMapy(&rozowy, mapa.iloscKolizji(), mapa.dajMapeKolizji());
+			obsluzKolizjeMapy(&niebieski, mapa.iloscKolizji(), mapa.dajMapeKolizji());
+
+			////////////////////////////////////////////////////////////////////////////////////////
+			//obsluga  AI duchow
+
+			czerwony.AI(&Pac_Man);
+			rozowy.AI(&Pac_Man);
+			pomaranczowy.AI(&Pac_Man);
+			niebieski.AI(&Pac_Man);
+
 			//////////////////////////////////////////////////////////////////////
 			//rysowanie sceny
 			
@@ -178,6 +220,12 @@ int main()
 				mapaPunktow.rysuj(&okno); // rysuje bia³ê punkty
 
 				okno.draw(*Pac_Man.cialo);// rysuj pacmana
+
+				okno.draw(*czerwony.cialo);// rysuj ducha
+				okno.draw(*niebieski.cialo);// rysuj ducha
+				okno.draw(*pomaranczowy.cialo);// rysuj ducha
+				okno.draw(*rozowy.cialo);// rysuj ducha
+
 
 				//mapa.rysuj_kolizje(&okno); // rysuj obszary kolizyjne
 
@@ -203,6 +251,11 @@ int main()
 			okno.draw(mapa.rysuj()); // rysuj mape
 			mapaPunktow.rysuj(&okno); // rysuje bia³ê punkty
 			okno.draw(*Pac_Man.cialo); // rysuj pacmana
+
+			okno.draw(*czerwony.cialo);// rysuj ducha
+			okno.draw(*niebieski.cialo);// rysuj ducha
+			okno.draw(*pomaranczowy.cialo);// rysuj ducha
+			okno.draw(*rozowy.cialo);// rysuj ducha
 			
 			//mapa.rysuj_kolizje(&okno);
 			komunikatPauza.wyswietl(&okno);
@@ -213,13 +266,19 @@ int main()
 		{
 			okno.clear(); // czyszczenie ekranu
 
-			logo.wyswietl(&okno, "PAC-MAN"); // rysuje logo
+			//logo.wyswietl(&okno, "PAC-MAN"); // rysuje logo
 			okno.draw(mapa.rysuj()); // rysuj mape
 			mapaPunktow.rysuj(&okno); // rysuje bia³ê punkty
 			okno.draw(*Pac_Man.cialo); // rysuj pacmana
 
+			okno.draw(*czerwony.cialo);// rysuj ducha
+			okno.draw(*niebieski.cialo);// rysuj ducha
+			okno.draw(*pomaranczowy.cialo);// rysuj ducha
+			okno.draw(*rozowy.cialo);// rysuj ducha
+
 									   //mapa.rysuj_kolizje(&okno);
 			komunikatStart.wyswietl(&okno);
+			logoStartowe.wyswietl(&okno, "PAC-MAN"); // rysuje logo
 
 			okno.display(); // wyswietl wyrysowane okno
 		}
