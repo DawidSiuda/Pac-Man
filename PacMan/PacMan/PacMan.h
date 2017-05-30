@@ -26,7 +26,10 @@ public:
 	virtual void obsluzKolizjeZMmapa(int, Kolizja *);
 	int daj_kierunek();						// zwraca kierunek w którym aktualnie pacman siê porusza 
 	int daj_kier_w_bufor();					// zwraca kierunek w który znajduje sie w buforze(kierunek pobrany z klawiatury ale i czekaj¹cy na mo¿liwoœæ ustawienia go jako kierunku g³ównego) 
-	 
+	int dajLiczbeZyc();
+	void zabierzZycie();
+	void ustawIloscZycie(int);
+	void ustawKierunek(int);
 
 	PacMan(
 		float predkosc,
@@ -56,7 +59,7 @@ private:
 	int kierunek_ust;
 	float x;
 	float y;
-	unsigned short ile_zyc;
+	short ile_zyc;
 	bool ustaZamkniete;					//true - usta zamkniete, false - usta otwarte
 	Texture tekstura;
 	CircleShape bohater;

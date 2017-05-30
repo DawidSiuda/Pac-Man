@@ -18,6 +18,8 @@ public:
 
 	BialyPunkt *dajMape();
 	int ilePunktow();
+	int dajProcent();
+	void zmiejszLiczbeKropek(int);
 
 	MapaPunktow();
 	~MapaPunktow();
@@ -26,5 +28,7 @@ private:
 	void robPunkty(int, int, int, int);
 	BialyPunkt *mapaKropek;
 	int ileKropek;
+	int ileKropekZjadl;
+	float procentDoKonca;
 };
 

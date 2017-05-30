@@ -29,6 +29,7 @@ public:
 	int ladowanie_na_mape();
 	virtual void zmienZwrotJesliMozliwe(); //zmienia kierunek ruchu postaci naprzeciwko jesli w buforze kierunku takie polecnie sie znajduje
 	virtual void obsluzKolizjeZMmapa(int, Kolizja *);
+	Wektor dajXY();
 
 
 	Duch(string, int, int, float, int = 100);

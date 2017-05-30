@@ -78,6 +78,49 @@ int PacMan::daj_kier_w_bufor()
 	return kierunek_w_buforze;
 }
 
+int PacMan::dajLiczbeZyc()
+{
+	return ile_zyc;
+}
+
+void PacMan::zabierzZycie()
+{
+	ile_zyc--;
+}
+
+void PacMan::ustawIloscZycie(int ile)
+{
+	ile_zyc = ile;
+}
+
+void PacMan::ustawKierunek(int gdzie)
+{
+	switch (gdzie)
+	{
+	case LEWO:
+		kierunek = LEWO;
+		kierunek_ust = LEWO;
+		break;
+	case PRAWO:
+		kierunek = PRAWO;
+		kierunek_ust = PRAWO;
+		break;
+	case GORA:
+		kierunek = GORA;
+		kierunek_ust = GORA;
+		break;
+	case DOL:
+		kierunek = DOL;
+		kierunek_ust = DOL;
+		break;
+	case STOJ:
+		kierunek = STOJ;
+		break;
+	default:
+		std::cout << "zly kierunek pac-mana: " << gdzie << std::endl;
+	}
+}
+
 void PacMan::zmiana_kier(int nowy)
 {
 	kierunek = nowy;
@@ -149,7 +192,8 @@ void PacMan::zmien_teksture(int kierunek)
 
 void PacMan::zamknij_paszcze()
 {
-	if (kierunek != 0) // sprawdza czy pacman siê porusza
+	
+if (kierunek != 0) // sprawdza czy pacman siê porusza
 	{
 		if (ustaZamkniete == true)
 		{

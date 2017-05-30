@@ -266,6 +266,15 @@ void Duch::obsluzKolizjeZMmapa(int ile_kolizji, Kolizja *mapa_kolizji)
 //////////////////////////////////////////////////////////////////////////////////
 }
 
+Wektor Duch::dajXY()
+{
+	Wektor pomoc;
+	pomoc.x = x;
+	pomoc.y = y;
+	
+	return pomoc;
+}
+
 Duch::Duch(string teks, int startX, int startY, float czasSt, int pred) 
 	:granicaStartLewo(270),
 	granicaStartPrawo(350),

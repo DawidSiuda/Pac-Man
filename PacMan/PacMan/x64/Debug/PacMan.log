@@ -1,11 +1,6 @@
-﻿  Duch.cpp
+﻿  Main.cpp
+d:\pulpit\glowny_pac-man\pacman\pacman\kolizja.h(9): warning C4091: 'extern ': ignored on left of 'PacMan' when no variable is declared
 d:\pulpit\glowny_pac-man\pacman\pacman\postac.h(5): warning C4091: 'extern ': ignored on left of 'Mapa' when no variable is declared
 d:\pulpit\glowny_pac-man\pacman\pacman\postac.h(6): warning C4091: 'extern ': ignored on left of 'Kolizja' when no variable is declared
-d:\pulpit\glowny_pac-man\pacman\pacman\kolizja.h(9): warning C4091: 'extern ': ignored on left of 'PacMan' when no variable is declared
-d:\pulpit\glowny_pac-man\pacman\pacman\duch.cpp(12): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-d:\pulpit\glowny_pac-man\pacman\pacman\duch.cpp(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\pulpit\glowny_pac-man\pacman\pacman\duch.cpp(276): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-d:\pulpit\glowny_pac-man\pacman\pacman\duch.cpp(280): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\pulpit\glowny_pac-man\pacman\pacman\duch.cpp(281): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   PacMan.vcxproj -> D:\pulpit\glowny_pac-man\PacMan\x64\Debug\PacMan.exe
   PacMan.vcxproj -> D:\pulpit\glowny_pac-man\PacMan\x64\Debug\PacMan.pdb (Partial PDB)

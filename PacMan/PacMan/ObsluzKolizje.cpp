@@ -2,6 +2,7 @@
 
 #include "PacMan.h"
 #include "BialyPunkt.h"
+#include "MapaPunktow.h"
 
 extern class Kolizja;
 
@@ -15,7 +16,7 @@ void obsluzKolizjeMapy(Postac * postac, int ilosc, Kolizja *mapa)
 	postac->obsluzKolizjeZMmapa(ilosc, mapa);
 }
 
-void obsluzKolizjeKropek(PacMan * pacman, BialyPunkt *mapaKropek, int ileKropek)
+void obsluzKolizjeKropek(PacMan * pacman, BialyPunkt *mapaKropek, int ileKropek , MapaPunktow *mapaPunktow)
 {
 	int pacmanX = pacman->daj_xy().x;
 	int pacmanY = pacman->daj_xy().y;
@@ -31,9 +32,25 @@ void obsluzKolizjeKropek(PacMan * pacman, BialyPunkt *mapaKropek, int ileKropek)
 					//std::cout << " I ate it ";
 					
 					mapaKropek[i].usunPunkt();
+					mapaPunktow->zmiejszLiczbeKropek(1);
 				}
 				
 			}
 		}
 	}
+}
+
+bool obsluzkolizjePacman_duchy(Wektor pacman, Wektor czerwony, Wektor niebieski, Wektor rozowy, Wektor pomaranczowy)
+{
+	if (pacman.x  + WIELKOSC > czerwony.x +15  && pacman.x  - WIELKOSC  < czerwony.x+15)
+	{
+		if (pacman.y + WIELKOSC > czerwony.y+15  && pacman.y  - WIELKOSC  < czerwony.y +15)
+		{
+			//cout << "smierc" << endl;
+			return true;
+		}
+			
+	}
+
+	return false;
 }

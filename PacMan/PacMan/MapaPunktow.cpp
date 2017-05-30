@@ -153,13 +153,30 @@ int MapaPunktow::ilePunktow()
 	return ileKropek;
 }
 
+
+int MapaPunktow::dajProcent()
+{
+
+	int pomoc = (100.0 / ileKropek)*ileKropekZjadl;
+	if (ileKropek == ileKropekZjadl)pomoc == 0;
+	return pomoc;
+}
+
+void MapaPunktow::zmiejszLiczbeKropek(int ile)
+{
+	ileKropekZjadl = ileKropekZjadl + ile;
+
+}
+
 MapaPunktow::MapaPunktow()
 {
 	mapaKropek = new BialyPunkt[1];
 	mapaKropek[0].ustawXY(100, 100);
 	mapaKropek[0].aktualizuj();
 	mapaKropek[0].usunPunkt();
-	ileKropek = 1;
+	ileKropek = 1; 
+	ileKropekZjadl = 1;
+	procentDoKonca=0;
 }
 
 MapaPunktow::~MapaPunktow()
