@@ -23,7 +23,6 @@ public:
 	Kolizja(bool = 0, bool = 0, bool = 0, bool = 0, float x = 0, float y = 0, float wielkosc = 20);
 	~Kolizja();
 
-	friend void obsluz_kolizje_mapy(Kolizja *, int, Wektor, int, int, PacMan*);
 	friend class Mapa;
 	friend class PacMan;
 	friend class Duch;

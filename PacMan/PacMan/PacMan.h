@@ -49,7 +49,6 @@ public:
 	~PacMan();
 
 	friend class Kolizja;
-	friend void obsluz_kolizje_mapy(Kolizja *, int, Wektor, int, int, PacMan*);
 
 protected:
 	void zmiana_kier(int);					//zmienie kierunek poruszania siê pacmana

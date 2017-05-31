@@ -46,10 +46,36 @@ bool obsluzkolizjePacman_duchy(Wektor pacman, Wektor czerwony, Wektor niebieski,
 	{
 		if (pacman.y + WIELKOSC > czerwony.y+15  && pacman.y  - WIELKOSC  < czerwony.y +15)
 		{
-			//cout << "smierc" << endl;
 			return true;
 		}
 			
+	}
+
+	if (pacman.x + WIELKOSC > pomaranczowy.x + 15 && pacman.x - WIELKOSC  < pomaranczowy.x + 15)
+	{
+		if (pacman.y + WIELKOSC > pomaranczowy.y + 15 && pacman.y - WIELKOSC  < pomaranczowy.y + 15)
+		{
+			return true;
+		}
+
+	}
+
+	if (pacman.x + WIELKOSC > niebieski.x + 15 && pacman.x - WIELKOSC  < niebieski.x + 15)
+	{
+		if (pacman.y + WIELKOSC > niebieski.y + 15 && pacman.y - WIELKOSC  < niebieski.y + 15)
+		{
+			return true;
+		}
+
+	}
+
+	if (pacman.x + WIELKOSC > rozowy.x + 15 && pacman.x - WIELKOSC  < rozowy.x + 15)
+	{
+		if (pacman.y + WIELKOSC > rozowy.y + 15 && pacman.y - WIELKOSC  < rozowy.y + 15)
+		{
+			return true;
+		}
+
 	}
 
 	return false;

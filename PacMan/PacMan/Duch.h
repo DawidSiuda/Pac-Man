@@ -17,20 +17,21 @@ class Duch :
 	public Postac
 {
 public:
-	RectangleShape *cialo;
-
-	int smierc();
-	float dajPredkosc();
-	void zmianaPozycji(float, int);
-	void zmianaPozycji(float, float);
-	int dajKierunek();
-	void AI(PacMan*,float);
-	void zmiana_kier(int);
-	int ladowanie_na_mape();
+	
+	
 	virtual void zmienZwrotJesliMozliwe(); //zmienia kierunek ruchu postaci naprzeciwko jesli w buforze kierunku takie polecnie sie znajduje
 	virtual void obsluzKolizjeZMmapa(int, Kolizja *);
+	void zmianaPozycji(float, int);
+	void zmianaPozycji(float, float);
+	void AI(PacMan*, float);
+	void zmiana_kier(int);
+	float dajPredkosc();
+	int smierc();
+	int ladowanie_na_mape();
+	int dajKierunek();
 	Wektor dajXY();
 
+	RectangleShape *cialo;
 
 	Duch(string, int, int, float, int = 100);
 	~Duch();
@@ -41,18 +42,17 @@ private:
 	static bool inicjalizujLosowosc;
 	const short granicaStartLewo;
 	const short granicaStartPrawo;
+	const float odlegloscKolizjiOtoczenia;
 	bool poscig; // true - poscig; false - ucieczka
 	bool portal; // true - postaæ znajduje sie w portalu; false - postac nie znajduje sie w portalu
-	RectangleShape bohater;
-	Texture tekstura;
+	bool obsluzWyjscie;
 	float x;
 	float y;
 	float czasStartu;
-	//Clock clock;
 	int kierunek;
 	int predkosc;
-	const float odlegloscKolizjiOtoczenia;
-	bool obsluzWyjscie;
+	RectangleShape bohater;
+	Texture tekstura;
 
 };
 

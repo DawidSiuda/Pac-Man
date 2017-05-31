@@ -1,7 +1,5 @@
 #include "MapaPunktow.h"
 
-
-
 void MapaPunktow::tworzMapePunktow(Kolizja *kol, int ile )
 {
 	Kolizja *kolizja = new Kolizja[ile];
@@ -153,7 +151,6 @@ int MapaPunktow::ilePunktow()
 	return ileKropek;
 }
 
-
 int MapaPunktow::dajProcent()
 {
 
@@ -259,31 +256,3 @@ void MapaPunktow::robPunkty(int Ix, int Iy, int IIx, int IIy)
 		ileKropek = nowaWielkosc;
 	}
 }
-/*
-		if ((odleglosc % odstepy) > 5)
-		{
-			if ((odleglosc + 1) % odstepy < 5)
-				odstepy += 1;
-			else
-			if ((odleglosc+2) % odstepy < 5)
-				odstepy += 2;
-			else
-			if ((odleglosc+3) % odstepy < 5)
-				odstepy += 3;
-			else
-			if ((odleglosc+4) % odstepy <5)
-				odstepy += 4;
-			else
-			if ((odleglosc-1) % odstepy <5)
-				odstepy -= 1;
-			else
-			if ((odleglosc-2) % odstepy <5)
-				odstepy -= 2;
-			else
-			if ((odleglosc-3) % odstepy <5)
-				odstepy -= 3;
-
-			cout << odstepy << endl;
-
-		}
-*/

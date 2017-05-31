@@ -12,23 +12,21 @@ using namespace std;
 class MapaPunktow
 {
 public:
-
 	void tworzMapePunktow(Kolizja*, int);
 	void rysuj(RenderWindow *);
-
-	BialyPunkt *dajMape();
+	void zmiejszLiczbeKropek(int);
 	int ilePunktow();
 	int dajProcent();
-	void zmiejszLiczbeKropek(int);
+	BialyPunkt *dajMape();
 
 	MapaPunktow();
 	~MapaPunktow();
 
 private:
 	void robPunkty(int, int, int, int);
-	BialyPunkt *mapaKropek;
+	float procentDoKonca;
 	int ileKropek;
 	int ileKropekZjadl;
-	float procentDoKonca;
+	BialyPunkt *mapaKropek;
 };
 

@@ -59,10 +59,11 @@ int main()
 		NoweOknoKomunikatu komunikatPauza("PAUSE", 260, 320, 40, "Press Esc to Continue", 130, 380, 30);// tworzy komunikat dla pauzy
 		NoweOknoKomunikatu komunikatStart("Press Enter to Start", 190, 380, 20);// tworzy komunikat dla Start
 		NoweOknoKomunikatu komunikatKoniecGry("GAME OVER", 200, 270, 40, " Space: Continue  Esc: Exit", 90, 380, 30 );// tworzy komunikat dla game over
+		NoweOknoKomunikatu komunikatWygrales("VICTROY", 160, 270, 70, " Space: Continue  Esc: Exit", 90, 380, 30);// tworzy komunikat wygranej
 		Napis kierunek(350, 680, 20, Color(255, 255, 255)); // tworzy napis przeznaczony do wyswietlania loga pac-mana
 		Napis logo(230, 10, 35, Color(255, 255, 255), "PAC-FONT.TTF");// tworzy napis przeznaczony do wyswietlania kierunku u do³u ekranu gry
 		Napis logoStartowe(70, 200, 90, Color(255, 255, 255), "PAC-FONT.TTF");// tworzy napis przeznaczony do wyswietlania napisu Pac-Man w menu startowym gry
-		Napis iloscZyc(30, 680, 20, Color(255, 255, 255)); //
+		Napis iloscZyc(30, 680, 20, Color(255, 255, 255)); 
 		Napis ileprocent(30, 710,20, Color(255, 255, 255));
 
 
@@ -86,113 +87,112 @@ int main()
 			{
 				switch (event.type)
 				{
-				case (Event::Closed):	//obs³uga przycisku zamkniêcia okna
-				{
-					okno.close();
-					czGraTrwa = false;
-					break;
-				}
-				case (Event::KeyPressed): // obs³uga klawiszy klawiatury
-				{
-					// obsluga klawiatury podczas gry, np.strza³ek
-					if (pauza == 1)
+					case (Event::Closed):	//obs³uga przycisku zamkniêcia okna
 					{
-						switch (event.key.code)
-						{
-						case(Keyboard::Left):
-						{
-							Pac_Man.zmianaBuforowanegoKierunku(LEWO);
-							break;
-						}
-						case(Keyboard::Right):
-						{
-							Pac_Man.zmianaBuforowanegoKierunku(PRAWO);
-							break;
-						}
-						case(Keyboard::Up):
-						{
-							Pac_Man.zmianaBuforowanegoKierunku(GORA);
-							break;
-						}
-						case(Keyboard::Down):
-						{
-							Pac_Man.zmianaBuforowanegoKierunku(DOL);
-							break;
-						}
-						case(Keyboard::Escape):
-						{
-							pauza = 0;
-							break;
-						}
-						case(Keyboard::X):
-						{
-							cout << Pac_Man.daj_xy().x << " | " << Pac_Man.daj_xy().y<<endl;
-							cout << czerwony.dajXY().x << " | " << czerwony.dajXY().y << endl;
-							break;
-						}
-						}
+						okno.close();
+						czGraTrwa = false;
+						break;
 					}
+					case (Event::KeyPressed): // obs³uga klawiszy klawiatury
+					{
+						// obsluga klawiatury podczas gry, np.strza³ek
+						if (pauza == 1)
+						{
+							switch (event.key.code)
+							{
+							case(Keyboard::Left):
+							{
+								Pac_Man.zmianaBuforowanegoKierunku(LEWO);
+								break;
+							}
+							case(Keyboard::Right):
+							{
+								Pac_Man.zmianaBuforowanegoKierunku(PRAWO);
+								break;
+							}
+							case(Keyboard::Up):
+							{
+								Pac_Man.zmianaBuforowanegoKierunku(GORA);
+								break;
+							}
+							case(Keyboard::Down):
+							{
+								Pac_Man.zmianaBuforowanegoKierunku(DOL);
+								break;
+							}
+							case(Keyboard::Escape):
+							{
+								pauza = 0;
+								break;
+							}
+							case(Keyboard::X):
+							{
+								cout << Pac_Man.daj_xy().x << " | " << Pac_Man.daj_xy().y<<endl;
+								cout << czerwony.dajXY().x << " | " << czerwony.dajXY().y << endl;
+								break;
+							}
+							}
+						}
 
-					// obsluga klawiatury podczas pauzy, np.powrót do gry
-					else if (pauza == 0)
-					{
-						switch (event.key.code)
+						// obsluga klawiatury podczas pauzy, np.powrót do gry
+						else if (pauza == 0)
 						{
-						case(Keyboard::Escape):
+							switch (event.key.code)
+							{
+							case(Keyboard::Escape):
+							{
+								pauza = 1;
+								clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
+								zegarDuchy.restart();//zeruje czas który up³yn¹³ od ostatniej klatki
+								break;
+							}
+							case(Keyboard::Space):
+							{
+								okno.close();
+								czGraTrwa = false;
+								break;
+							}
+							}
+						}
+						else if (pauza == 2)
 						{
-							pauza = 1;
-							clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
-							zegarDuchy.restart();//zeruje czas który up³yn¹³ od ostatniej klatki
-							break;
+							switch (event.key.code)
+							{
+							case(Keyboard::Return):
+							{
+								pauza = 1;
+								clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
+								zegarDuchy.restart();//zeruje czas który up³yn¹³ od ostatniej klatki
+								break;
+							}
+							}
 						}
-						case(Keyboard::Space):
+						else if (pauza == 3 || pauza == 4)
 						{
-							okno.close();
-							czGraTrwa = false;
-							break;
+							switch (event.key.code)
+							{
+							case(Keyboard::Escape):
+							{
+								okno.close();
+								czGraTrwa = false;
+								break;
+							}
+							case(Keyboard::Space):
+							{
+								okno.close();
+								czGraTrwa =true;
+								break;
+							}
+							}
 						}
-						}
+						break;
 					}
-					else if (pauza == 2)
+					case(Event::MouseButtonPressed)://obs³uga lewego przycisku myszy
 					{
-						switch (event.key.code)
-						{
-						case(Keyboard::Return):
-						{
-							pauza = 1;
-							clock.restart(); //zeruje czas który up³yn¹³ od ostatniej klatki
-							zegarDuchy.restart();//zeruje czas który up³yn¹³ od ostatniej klatki
-							break;
-						}
-						}
+						std::cout << Mouse::getPosition(okno).x << " " << Mouse::getPosition(okno).y << std::endl;
+						break;
 					}
-					else if (pauza = 3)
-					{
-						switch (event.key.code)
-						{
-						case(Keyboard::Escape):
-						{
-							okno.close();
-							czGraTrwa = false;
-							break;
-						}
-						case(Keyboard::Space):
-						{
-							okno.close();
-							czGraTrwa =true;
-							break;
-						}
-						}
-					}
-					break;
-				}
-				case(Event::MouseButtonPressed)://obs³uga lewego przycisku myszy
-				{
-					std::cout << Mouse::getPosition(okno).x << " " << Mouse::getPosition(okno).y << std::endl;
-					break;
-				}
-
-				}
+				}//switch(event.type)
 			} //while
 
 
@@ -245,6 +245,7 @@ int main()
 
 				////////////////////////////////////////////////////////////////////////////////////////
 				//loczenie kolizji pacman - duchy
+
 				if (obsluzkolizjePacman_duchy(Pac_Man.daj_xy(), czerwony.dajXY(), niebieski.dajXY(), rozowy.dajXY(), pomaranczowy.dajXY()))
 				{
 					Pac_Man.zabierzZycie();
@@ -264,25 +265,27 @@ int main()
 
 
 				}
+				////////////////////////////////////////////////////////////////////////////////////////
+				//sprawdzenie czy koniec gry (czy pacman zjad³ wszystkie kropki)
+
+				if (mapaPunktow.dajProcent() == 100)
+				{
+					pauza = 4;
+				}
 
 				//////////////////////////////////////////////////////////////////////
 				//rysowanie sceny
 
 				okno.clear(); // czyszczenie ekranu
-
 				logo.wyswietl(&okno, "PAC-MAN"); // rysuje logo
-
 				okno.draw(mapa.rysuj()); // rysuj mape
-
 				mapaPunktow.rysuj(&okno); // rysuje bia³ê punkty
 
 				okno.draw(*Pac_Man.cialo);// rysuj pacmana
-
 				okno.draw(*czerwony.cialo);// rysuj ducha
 				okno.draw(*niebieski.cialo);// rysuj ducha
 				okno.draw(*pomaranczowy.cialo);// rysuj ducha
 				okno.draw(*rozowy.cialo);// rysuj ducha
-
 
 				//mapa.rysuj_kolizje(&okno); // rysuj obszary kolizyjne
 
@@ -295,9 +298,9 @@ int main()
 				}
 
 				string zycie = to_string(Pac_Man.dajLiczbeZyc());
-				iloscZyc.wyswietl(&okno, "Number of lives: "+zycie);
+				iloscZyc.wyswietl(&okno, "lives: "+zycie);
 				zycie = to_string(mapaPunktow.dajProcent());
-				ileprocent.wyswietl(&okno, "Mission complete in: "+zycie+"%");
+				ileprocent.wyswietl(&okno,zycie+"%");
 
 				okno.display();// wyswietl wyrysowane okno
 
@@ -305,6 +308,7 @@ int main()
 			//////////////////////////////////////////////////////////////////////
 
 			}
+			//ekran pauzy
 			else if (pauza == 0)
 			{
 				okno.clear(); // czyszczenie ekranu
@@ -320,16 +324,16 @@ int main()
 				okno.draw(*rozowy.cialo);// rysuj ducha
 
 				string zycie = to_string(Pac_Man.dajLiczbeZyc());
-				iloscZyc.wyswietl(&okno, "Number of lives: " + zycie);
-
+				iloscZyc.wyswietl(&okno, "lives: " + zycie);
 				zycie = to_string(mapaPunktow.dajProcent());
-				ileprocent.wyswietl(&okno, "Mission complete in: " + zycie + "%");
+				ileprocent.wyswietl(&okno, zycie + "%");
 
 				//mapa.rysuj_kolizje(&okno);
 				komunikatPauza.wyswietl(&okno);
 
 				okno.display(); // wyswietl wyrysowane okno
 			}
+			//ekran rozpoczecia gry
 			else if (pauza == 2)
 			{
 				okno.clear(); // czyszczenie ekranu
@@ -345,16 +349,17 @@ int main()
 				okno.draw(*rozowy.cialo);// rysuj ducha
 
 				string zycie = to_string(Pac_Man.dajLiczbeZyc());
-				iloscZyc.wyswietl(&okno, "Number of lives: " + zycie);
-
+				iloscZyc.wyswietl(&okno, "lives: " + zycie);
 				zycie = to_string(mapaPunktow.dajProcent());
-				ileprocent.wyswietl(&okno, "Mission complete in: " + zycie + "%");
-										   //mapa.rysuj_kolizje(&okno);
+				ileprocent.wyswietl(&okno, zycie + "%");
+
+				//mapa.rysuj_kolizje(&okno);
 				komunikatStart.wyswietl(&okno);
 				logoStartowe.wyswietl(&okno, "PAC-MAN"); // rysuje logo
 
 				okno.display(); // wyswietl wyrysowane okno
 			}
+			//ekran konca gry (game over)
 			else if (pauza == 3)
 			{
 				okno.clear(); // czyszczenie ekranu
@@ -370,13 +375,37 @@ int main()
 				okno.draw(*rozowy.cialo);// rysuj ducha
 
 				string zycie = to_string(Pac_Man.dajLiczbeZyc());
-				iloscZyc.wyswietl(&okno, "Number of lives: " + zycie);
-
+				iloscZyc.wyswietl(&okno, "lives: " + zycie);
 				zycie = to_string(mapaPunktow.dajProcent());
-				ileprocent.wyswietl(&okno, "Mission complete in: " + zycie + "%");
+				ileprocent.wyswietl(&okno, zycie + "%");
 				//mapa.rysuj_kolizje(&okno);
 
 				komunikatKoniecGry.wyswietl(&okno);
+
+				okno.display(); // wyswietl wyrysowane okno
+			}
+			//ekraz konca gry (victory)
+			else if (pauza == 4)
+			{
+				okno.clear(); // czyszczenie ekranu
+
+							  //logo.wyswietl(&okno, "PAC-MAN"); // rysuje logo
+				okno.draw(mapa.rysuj()); // rysuj mape
+				mapaPunktow.rysuj(&okno); // rysuje bia³ê punkty
+				okno.draw(*Pac_Man.cialo); // rysuj pacmana
+
+				okno.draw(*czerwony.cialo);// rysuj ducha
+				okno.draw(*niebieski.cialo);// rysuj ducha
+				okno.draw(*pomaranczowy.cialo);// rysuj ducha
+				okno.draw(*rozowy.cialo);// rysuj ducha
+
+				string zycie = to_string(Pac_Man.dajLiczbeZyc());
+				iloscZyc.wyswietl(&okno, "lives: " + zycie);
+				zycie = to_string(mapaPunktow.dajProcent());
+				ileprocent.wyswietl(&okno, zycie + "%");
+				//mapa.rysuj_kolizje(&okno);
+
+				komunikatWygrales.wyswietl(&okno);
 
 				okno.display(); // wyswietl wyrysowane okno
 			}
